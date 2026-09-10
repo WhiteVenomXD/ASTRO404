@@ -23,9 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 
-# Game archive — distributed via GitHub Releases
-game.tar.gz
-public/game.tar.gz
-
 # Environment variables
 .env
