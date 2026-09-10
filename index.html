@@ -253,7 +253,7 @@
         /* =========================================
            LAYOUT PRINCIPAL Y BUSCADOR
            ========================================= */
-        #app-content {
+       #app-content {
             display: none;
             padding: 20px;
             max-width: 1200px;
@@ -268,13 +268,14 @@
             margin-bottom: 40px;
             border-bottom: 2px solid var(--neon-pink);
             gap: 15px;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
             gap: 15px;
+            flex-shrink: 0;
         }
 
         .logo-container img {
@@ -294,16 +295,24 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* BUSCADOR DE JUEGOS */
+        /* BUSCADOR EXPANDIBLE A LA DERECHA */
         .search-container {
             position: relative;
-            flex-grow: 1;
-            max-width: 320px;
+            width: 38px;
+            height: 38px;
+            transition: width 0.4s ease;
+            flex-shrink: 0;
+        }
+
+        .search-container:focus-within,
+        .search-container:hover {
+            width: 220px;
         }
 
         .search-input {
             width: 100%;
-            padding: 8px 16px 8px 38px;
+            height: 100%;
+            padding: 8px 12px 8px 36px;
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid var(--neon-cyan);
             border-radius: 20px;
@@ -311,21 +320,24 @@
             font-size: 0.85rem;
             outline: none;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
-        .search-input:focus {
+        .search-container:focus-within .search-input {
+            cursor: text;
+            background: rgba(0, 0, 0, 0.8);
             box-shadow: var(--shadow-cyan);
-            background: rgba(0, 0, 0, 0.7);
         }
 
         .search-icon {
             position: absolute;
-            left: 12px;
+            left: 11px;
             top: 50%;
             transform: translateY(-50%);
             font-size: 0.9rem;
             color: var(--neon-cyan);
             pointer-events: none;
+            z-index: 2;
         }
 
         .settings-btn {
@@ -335,6 +347,7 @@
             font-size: 1.5rem;
             cursor: pointer;
             transition: transform 0.3s ease;
+            flex-shrink: 0;
         }
 
         .settings-btn:hover {
