@@ -164,6 +164,7 @@
             font-weight: 600;
             letter-spacing: 1px;
             text-shadow: 0 0 8px rgba(255, 0, 127, 0.4);
+            text-transform: uppercase;
         }
 
         .login-subtitle.fade-out {
@@ -525,7 +526,7 @@
 
 <body>
 
-    <!-- LOGIN CON LOGO GRANDE Y FRASES ALEATORIAS -->
+    <!-- LOGIN CON LOGO GRANDE Y NUEVAS FRASES ALEATORIAS -->
     <div id="login-screen">
         <div class="glass login-box">
             <img src="imagenes/ASTRO404-logo.png" alt="Astro404 Logo" class="login-logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIj48Y2lyY2xlIGN4PSI2NSIgY3k9IjY1IiByPSI2NSIgZmlsbD0iIzAwRjBGRiIvPjx0ZXh0IHg9IjIwIiB5PSI3NSIgZmlsbD0iIzAwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSIzMCI+NDA0PC90ZXh0Pjwvc3ZnPg=='">
@@ -599,18 +600,10 @@
                     <p>El mítico juego de arcade: laberinto, fantasmas (Blinky, Pinky, Inky, Clyde) y cocos.</p>
                     <button class="btn-play">JUGAR</button>
                 </div>
-
-                <!-- AÑADIDO MINECRAFT WEB ONLINE -->
-                <div class="glass card" onclick="openMinecraft()">
-                    <div class="card-icon">🧊</div>
-                    <h3>Minecraft Web (Eagler)</h3>
-                    <p>Minecraft 1.8 en HTML5 con multijugador online funcional para jugar con amigos.</p>
-                    <button class="btn-play">JUGAR ONLINE</button>
-                </div>
             </div>
 
-            <!-- JUEGOS RETRO (EMULADOR) -->
-            <h2 class="section-title" style="border-color: var(--neon-pink); text-shadow: 0 0 10px rgba(255,0,127,0.5);">🕹️ R3TR0 <span style="font-size:1rem;color:var(--neon-pink)">[Emuladores]</span></h2>
+            <!-- JUEGOS RETRO Y EMULADORES (MINECRAFT MOVIDO AQUÍ) -->
+            <h2 class="section-title" style="border-color: var(--neon-pink); text-shadow: 0 0 10px rgba(255,0,127,0.5);">🕹️ R3TR0 <span style="font-size:1rem;color:var(--neon-pink)">[Emuladores/Especiales]</span></h2>
             <div class="grid-container">
                 <div class="glass card card-r3tr0" onclick="openDoom()">
                     <div class="card-icon">💀</div>
@@ -624,6 +617,14 @@
                     <h3>Super Mario 64</h3>
                     <p>El revolucionario plataformas en 3D de Nintendo 64.</p>
                     <button class="btn-play">EMULAR</button>
+                </div>
+
+                <!-- MINECRAFT MOVIDO A LA SECCIÓN R3TR0 -->
+                <div class="glass card card-r3tr0" onclick="openMinecraft()">
+                    <div class="card-icon">🧊</div>
+                    <h3>Minecraft Web (Eagler)</h3>
+                    <p>Minecraft 1.8 en HTML5 con multijugador online funcional para jugar con amigos.</p>
+                    <button class="btn-play">JUGAR ONLINE</button>
                 </div>
             </div>
         </main>
@@ -644,18 +645,16 @@
         /* =========================================
            SISTEMA DE FRASES ALEATORIAS
            ========================================= */
-        // Puedes añadir aquí directamente las frases que quieras entre comillas
         const quotesList = [
-            "EL RINCÓN ANTIVIRUS DE LA RED",
-            "MÁS RÁPIDO QUE MI CONEXIÓN A INTERNET",
-            "CERO ANUNCIOS, CERO HISTORIAS",
-            "insert coin to start...",
-            "¡CUIDADO CON EL FANTASMA ROJO!",
-            "BIENVENIDO AL PORTAL ESPACIAL",
-            "ROMPIENDO LAS LEYES DEL ESPACIO-TIEMPO",
-            "MÁS NOSTALGIA QUE EN TUS ARCHIVOS DE SECUNDARIA",
-            "HECHO POR Y PARA JUGADORES",
-            "LA MATRIZ SE ESTÁ RECONFIGURANDO..."
+            "AITOR SE  COMIÓ UN PASTELILLO DE CACA",
+            "SKUISHI PUSHY VS MAKA PAKA",
+            "NO INTERNET? BIG PROBLEM",
+            "CHEESCAKE...",
+            "ME PONGO EL SOMBRERO",
+            "QUIEN SE HECHA UN MAICRAF",
+            "I LOVE FURRY LOVE",
+            "EPIC GAMES NUNCA TE PEDIRA TU CONTRASEÑA",
+            "hola"
         ];
 
         let currentQuoteIndex = -1;
@@ -671,7 +670,7 @@
 
             currentQuoteIndex = randomIndex;
 
-            // Transición de fundido (Fade out -> Cambiar texto -> Fade in)
+            // Transición de fundido
             quoteElement.classList.add('fade-out');
 
             setTimeout(() => {
