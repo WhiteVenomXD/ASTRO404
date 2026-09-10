@@ -13,7 +13,6 @@
            VARIABLES Y TEMAS
            ========================================= */
         :root {
-            /* Tema Oscuro (Por defecto) */
             --bg-color: #050510;
             --text-color: #ffffff;
             --glass-bg: rgba(20, 20, 35, 0.4);
@@ -28,7 +27,6 @@
         }
 
         [data-theme="light"] {
-            /* Tema Claro */
             --bg-color: #f0f4f8;
             --text-color: #1a1a2e;
             --glass-bg: rgba(255, 255, 255, 0.6);
@@ -62,13 +60,10 @@
             overflow-x: hidden;
         }
 
-        h1,
-        h2,
-        h3 {
+        h1, h2, h3 {
             font-family: 'Orbitron', sans-serif;
         }
 
-        /* Desactivar animaciones si el usuario lo prefiere */
         body.low-animations * {
             transition: none !important;
             animation: none !important;
@@ -84,9 +79,6 @@
             background: #ffffff;
         }
 
-        /* =========================================
-           EFECTOS GLASSMORPHISM
-           ========================================= */
         .glass {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
@@ -97,7 +89,7 @@
         }
 
         /* =========================================
-           PANTALLA DE ACCESO (LOGIN)
+           LOGIN
            ========================================= */
         #login-screen {
             position: fixed;
@@ -105,7 +97,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(5, 5, 16, 0.9);
+            background: rgba(5, 5, 16, 0.95);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -195,7 +187,6 @@
                 box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
                 border-color: rgba(0, 240, 255, 0.2);
             }
-
             100% {
                 box-shadow: 0 0 30px rgba(255, 0, 127, 0.2);
                 border-color: rgba(255, 0, 127, 0.4);
@@ -203,7 +194,7 @@
         }
 
         /* =========================================
-           ESTRUCTURA PRINCIPAL Y CABECERA
+           LAYOUT PRINCIPAL
            ========================================= */
         #app-content {
             display: none;
@@ -258,7 +249,7 @@
         }
 
         /* =========================================
-           PANEL DE AJUSTES (MODAL)
+           PANEL DE AJUSTES
            ========================================= */
         #settings-modal {
             position: fixed;
@@ -338,13 +329,8 @@
             background: var(--neon-pink);
         }
 
-        input[type="file"] {
-            width: 100%;
-            font-size: 0.8rem;
-        }
-
         /* =========================================
-           TARJETAS DE CONTENIDO (JUEGOS Y EMULADORES)
+           TARJETAS DE JUEGOS
            ========================================= */
         .section-title {
             font-size: 1.5rem;
@@ -371,23 +357,6 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 10%, transparent 40%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-
-        .card:hover::before {
-            opacity: 1;
         }
 
         .card:hover {
@@ -436,7 +405,7 @@
         }
 
         /* =========================================
-           MODAL DE JUEGO / EMULADOR
+           MODAL REPRODUCTOR
            ========================================= */
         #game-modal {
             position: fixed;
@@ -494,27 +463,23 @@
         }
 
         canvas {
-            background: #111;
+            background: #050510;
             display: block;
-        }
-
-        #emulator-container {
-            width: 100%;
-            height: 100%;
         }
 
         .controls-info {
             color: #fff;
             font-size: 0.8rem;
             margin-top: 10px;
-            opacity: 0.7;
+            opacity: 0.8;
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- PANTALLA DE LOGIN -->
+    <!-- LOGIN -->
     <div id="login-screen">
         <div class="glass login-box">
             <h1>ASTRO404</h1>
@@ -542,7 +507,7 @@
             <div class="setting-item">
                 <label>Animaciones (Bajo Rendimiento)</label>
                 <input type="checkbox" id="anim-toggle" class="toggle-switch">
-                <small style="opacity:0.7;font-size:0.7rem;display:block;margin-top:5px;">Actívalo si tu PC va lento.</small>
+                <small style="opacity:0.7;font-size:0.7rem;display:block;margin-top:5px;">Actívalo si tu equipo va lento.</small>
             </div>
 
             <div class="setting-item">
@@ -557,14 +522,15 @@
     <div id="app-content">
         <header class="glass">
             <div class="logo-container">
-                <img src="./logo.jpg" alt="Astro404 Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+PGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iMjUiIGZpbGw9IiMwMEYwRkYiLz48dGV4dCB4PSIxMCIgeT0iMzAiIGZpbGw9IiMwMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC13ZWlnaHQ9ImJvbGQiPjQwNDwvdGV4dD48L3N2Zz4='">
+                <!-- RUTA AL LOGO EN TU CARPETA imagenes/ -->
+                <img src="imagenes/ASTRO404-logo.png" alt="Astro404 Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+PGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iMjUiIGZpbGw9IiMwMEYwRkYiLz48dGV4dCB4PSIxMCIgeT0iMzAiIGZpbGw9IiMwMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC13ZWlnaHQ9ImJvbGQiPjQwNDwvdGV4dD48L3N2Zz4='">
                 <h1>ASTRO404</h1>
             </div>
             <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
         </header>
 
         <main>
-            <!-- SECCIÓN 4RCAD3 (Nativos) -->
+            <!-- JUEGOS NATIVOS HTML5 -->
             <h2 class="section-title">👾 4RCAD3 <span style="font-size:1rem;color:var(--neon-cyan)">[HTML5/JS]</span></h2>
             <div class="grid-container">
                 <div class="glass card" onclick="openGame('snake')">
@@ -582,20 +548,20 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN R3TR0 (Emuladores) -->
+            <!-- JUEGOS RETRO (EMULADOR) -->
             <h2 class="section-title" style="border-color: var(--neon-pink); text-shadow: 0 0 10px rgba(255,0,127,0.5);">🕹️ R3TR0 <span style="font-size:1rem;color:var(--neon-pink)">[Emuladores]</span></h2>
             <div class="grid-container">
-                <div class="glass card card-r3tr0" onclick="loadEmulator('prboom', 'https://ia800302.us.archive.org/3/items/2020_03_22_DOOM/DOOM1.WAD', 'DOOM (1993)')">
+                <div class="glass card card-r3tr0" onclick="openDoom()">
                     <div class="card-icon">💀</div>
                     <h3>DOOM (1993)</h3>
-                    <p>Shareware WAD (PrBoom Core)</p>
+                    <p>Carga directa desde la carpeta roms/doom1.wad mediante EmulatorJS.</p>
                     <button class="btn-play">EMULAR</button>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- MODAL REPRODUCTOR DE JUEGOS Y EMULADOR -->
+    <!-- MODAL DE JUEGOS -->
     <div id="game-modal">
         <div class="game-header">
             <h2 id="game-title">Título del Juego</h2>
@@ -605,9 +571,11 @@
         <div class="controls-info" id="game-controls"></div>
     </div>
 
-    <!-- JAVASCRIPT -->
+    <!-- JAVASCRIPT COMPLETO -->
     <script>
-        /* SISTEMA DE LOGIN */
+        /* =========================================
+           SISTEMA DE LOGIN
+           ========================================= */
         const passInput = document.getElementById('password-input');
         passInput.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') checkPassword();
@@ -629,7 +597,9 @@
             }
         }
 
-        /* SISTEMA DE AJUSTES */
+        /* =========================================
+           SISTEMA DE AJUSTES
+           ========================================= */
         function toggleSettings() {
             document.getElementById('settings-modal').classList.toggle('open');
         }
@@ -683,7 +653,7 @@
                     try {
                         localStorage.setItem('astro_bg', base64Str);
                     } catch (err) {
-                        alert("La imagen es demasiado pesada para guardarla localmente.");
+                        alert("La imagen es demasiado grande para guardarse en el almacenamiento local.");
                     }
                 };
                 reader.readAsDataURL(file);
@@ -696,74 +666,111 @@
             bgUpload.value = "";
         }
 
-        /* GESTOR DE EMULADOR EMULATORJS */
-        function loadEmulator(core, gameUrl, gameTitle) {
-            const modal = document.getElementById('game-modal');
-            const viewport = document.getElementById('game-viewport');
-            const title = document.getElementById('game-title');
-            const controls = document.getElementById('game-controls');
-
-            viewport.innerHTML = '<div id="emulator-container"></div>';
-            controls.innerText = "Cargando emulador...";
-            title.innerText = gameTitle;
-            modal.style.display = 'flex';
-
-            window.EJS_player = '#emulator-container';
-            window.EJS_core = core;
-            window.EJS_gameUrl = gameUrl;
-            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-            window.EJS_startOnLoaded = true;
-
-            let loader = document.createElement('script');
-            loader.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-            document.getElementById('emulator-container').appendChild(loader);
-        }
-
-        /* JUEGOS HTML5 NATIVOS */
-        let currentGameLoop = null;
-        let snakeKeyHandler, dinoKeyHandler;
-
-        function openGame(type) {
-            const modal = document.getElementById('game-modal');
-            const viewport = document.getElementById('game-viewport');
-            const title = document.getElementById('game-title');
-            const controls = document.getElementById('game-controls');
-
-            viewport.innerHTML = '';
-            controls.innerText = '';
-            modal.style.display = 'flex';
-
-            if (type === 'snake') {
-                title.innerText = "Neon Snake";
-                controls.innerText = "Controles: Flechas del teclado";
-                viewport.innerHTML = '<canvas id="gameCanvas" width="600" height="400"></canvas>';
-                startSnake();
-            } else if (type === 'dino') {
-                title.innerText = "Space Runner";
-                controls.innerText = "Controles: ESPACIO o Flecha Arriba para saltar";
-                viewport.innerHTML = '<canvas id="gameCanvas" width="600" height="400"></canvas>';
-                startDino();
-            }
-        }
+        /* =========================================
+           SISTEMA DE REPRODUCCIÓN Y JUEGOS
+           ========================================= */
+        let currentGameInterval = null;
+        let currentGameAnimationFrame = null;
+        let snakeKeyHandler = null;
+        let dinoKeyHandler = null;
 
         function closeGame() {
             document.getElementById('game-modal').style.display = 'none';
             document.getElementById('game-viewport').innerHTML = '';
-            if (currentGameLoop) {
-                cancelAnimationFrame(currentGameLoop);
-                currentGameLoop = null;
+
+            const oldScript = document.getElementById('ejs-script');
+            if (oldScript) oldScript.remove();
+
+            if (currentGameInterval) {
+                clearInterval(currentGameInterval);
+                currentGameInterval = null;
             }
-            window.removeEventListener('keydown', snakeKeyHandler);
-            window.removeEventListener('keydown', dinoKeyHandler);
+            if (currentGameAnimationFrame) {
+                cancelAnimationFrame(currentGameAnimationFrame);
+                currentGameAnimationFrame = null;
+            }
+            if (snakeKeyHandler) {
+                window.removeEventListener('keydown', snakeKeyHandler);
+                snakeKeyHandler = null;
+            }
+            if (dinoKeyHandler) {
+                window.removeEventListener('keydown', dinoKeyHandler);
+                dinoKeyHandler = null;
+            }
         }
 
+        /* CARGA DE DOOM MEDIANTE CARPETA LOCAL roms/doom1.wad */
+        function openDoom() {
+            closeGame();
+            const modal = document.getElementById('game-modal');
+            const viewport = document.getElementById('game-viewport');
+            const title = document.getElementById('game-title');
+            const controls = document.getElementById('game-controls');
+
+            title.innerText = "DOOM (1993)";
+            controls.innerText = "Controles: Teclas de dirección | Ctrl: Disparar | Espacio: Abrir puertas / Acciones";
+
+            viewport.innerHTML = '<div id="game" style="width:100%;height:100%;"></div>';
+            modal.style.display = 'flex';
+
+            // Configuración de EmulatorJS apuntando a tu ruta local roms/doom1.wad
+            window.EJS_player = '#game';
+            window.EJS_core = 'prboom';
+            window.EJS_gameName = 'DOOM';
+            window.EJS_color = '#00F0FF';
+            window.EJS_startOnLoaded = true;
+            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+            window.EJS_gameUrl = 'roms/doom1.wad';
+
+            const script = document.createElement('script');
+            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            script.id = 'ejs-script';
+            document.body.appendChild(script);
+        }
+
+        /* ABRIR JUEGOS HTML5 */
+        function openGame(type) {
+            closeGame();
+            const modal = document.getElementById('game-modal');
+            const viewport = document.getElementById('game-viewport');
+            const title = document.getElementById('game-title');
+            const controls = document.getElementById('game-controls');
+
+            viewport.innerHTML = '<canvas id="gameCanvas" width="600" height="400"></canvas>';
+            modal.style.display = 'flex';
+
+            if (type === 'snake') {
+                title.innerText = "Neon Snake";
+                controls.innerText = "Controles: Flechas del teclado para cambiar la dirección";
+                startSnake();
+            } else if (type === 'dino') {
+                title.innerText = "Space Runner";
+                controls.innerText = "Controles: ESPACIO o FLECHA ARRIBA para saltar";
+                startDino();
+            }
+        }
+
+        /* LÓGICA COMPLETA DE NEON SNAKE */
         function startSnake() {
             const canvas = document.getElementById('gameCanvas');
             const ctx = canvas.getContext('2d');
-            let snake = [{ x: 10, y: 10 }];
-            let food = { x: 15, y: 15 };
-            let dx = 1, dy = 0;
             const gridSize = 20;
+
+            let snake = [
+                { x: 10, y: 10 },
+                { x: 9, y: 10 },
+                { x: 8, y: 10 }
+            ];
+            let dx = 1, dy = 0;
+            let score = 0;
+
+            function generateFood() {
+                return {
+                    x: Math.floor(Math.random() * (canvas.width / gridSize)),
+                    y: Math.floor(Math.random() * (canvas.height / gridSize))
+                };
+            }
+            let food = generateFood();
 
             snakeKeyHandler = (e) => {
                 if (e.key === 'ArrowUp' && dy === 0) { dx = 0; dy = -1; }
@@ -773,26 +780,71 @@
             };
             window.addEventListener('keydown', snakeKeyHandler);
 
-            function loop() {
-                currentGameLoop = requestAnimationFrame(loop);
+            function update() {
+                const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+                // Colisión con paredes
+                if (head.x < 0 || head.x >= canvas.width / gridSize || head.y < 0 || head.y >= canvas.height / gridSize) {
+                    alert('¡Juego Terminado! Puntuación final: ' + score);
+                    snake = [{ x: 10, y: 10 }, { x: 9, y: 10 }, { x: 8, y: 10 }];
+                    dx = 1; dy = 0; score = 0;
+                    food = generateFood();
+                    return;
+                }
+
+                // Colisión con el propio cuerpo
+                for (let i = 0; i < snake.length; i++) {
+                    if (head.x === snake[i].x && head.y === snake[i].y) {
+                        alert('¡Juego Terminado! Puntuación final: ' + score);
+                        snake = [{ x: 10, y: 10 }, { x: 9, y: 10 }, { x: 8, y: 10 }];
+                        dx = 1; dy = 0; score = 0;
+                        food = generateFood();
+                        return;
+                    }
+                }
+
+                snake.unshift(head);
+
+                // Comer alimento
+                if (head.x === food.x && head.y === food.y) {
+                    score += 10;
+                    food = generateFood();
+                } else {
+                    snake.pop();
+                }
+
+                // Renderizado
                 ctx.fillStyle = '#050510';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+                // Dibujar Comida
                 ctx.fillStyle = '#FF007F';
                 ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
 
+                // Dibujar Serpiente
                 ctx.fillStyle = '#00F0FF';
                 snake.forEach(seg => {
                     ctx.fillRect(seg.x * gridSize, seg.y * gridSize, gridSize - 2, gridSize - 2);
                 });
+
+                // Dibujar Puntuación
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = '14px Orbitron';
+                ctx.fillText('SCORE: ' + score, 15, 25);
             }
-            loop();
+
+            currentGameInterval = setInterval(update, 100);
         }
 
+        /* LÓGICA COMPLETA DE SPACE RUNNER (DINO) */
         function startDino() {
             const canvas = document.getElementById('gameCanvas');
             const ctx = canvas.getContext('2d');
-            let dino = { x: 50, y: 300, w: 30, h: 30, dy: 0, gravity: 0.6, jump: -12, grounded: true };
+
+            let dino = { x: 50, y: 300, w: 30, h: 30, dy: 0, gravity: 0.6, jump: -11, grounded: true };
+            let obstacles = [];
+            let score = 0;
+            let frameCount = 0;
 
             dinoKeyHandler = (e) => {
                 if ((e.code === 'Space' || e.code === 'ArrowUp') && dino.grounded) {
@@ -803,10 +855,13 @@
             window.addEventListener('keydown', dinoKeyHandler);
 
             function loop() {
-                currentGameLoop = requestAnimationFrame(loop);
+                currentGameAnimationFrame = requestAnimationFrame(loop);
+                frameCount++;
+
                 ctx.fillStyle = '#050510';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+                // Física del personaje
                 dino.dy += dino.gravity;
                 dino.y += dino.dy;
                 if (dino.y >= 300) {
@@ -814,12 +869,63 @@
                     dino.grounded = true;
                 }
 
+                // Generación aleatoria de obstáculos
+                if (frameCount % 110 === 0) {
+                    obstacles.push({ x: canvas.width, y: 300, w: 20, h: 30 });
+                }
+
+                // Dibujar Suelo
+                ctx.strokeStyle = '#FF007F';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(0, 330);
+                ctx.lineTo(canvas.width, 330);
+                ctx.stroke();
+
+                // Dibujar Personaje
                 ctx.fillStyle = '#00F0FF';
                 ctx.fillRect(dino.x, dino.y, dino.w, dino.h);
+
+                // Actualizar y dibujar obstáculos
+                ctx.fillStyle = '#FF7000';
+                for (let i = obstacles.length - 1; i >= 0; i--) {
+                    let obs = obstacles[i];
+                    obs.x -= 6;
+                    ctx.fillRect(obs.x, obs.y, obs.w, obs.h);
+
+                    // Detección de colisiones
+                    if (
+                        dino.x < obs.x + obs.w &&
+                        dino.x + dino.w > obs.x &&
+                        dino.y < obs.y + obs.h &&
+                        dino.y + dino.h > obs.y
+                    ) {
+                        alert('¡Juego Terminado! Puntuación final: ' + score);
+                        obstacles = [];
+                        score = 0;
+                        frameCount = 0;
+                        dino.y = 300;
+                        return;
+                    }
+
+                    // Eliminar obstáculos fuera de pantalla y sumar puntos
+                    if (obs.x + obs.w < 0) {
+                        obstacles.splice(i, 1);
+                        score += 10;
+                    }
+                }
+
+                // Puntuación
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = '14px Orbitron';
+                ctx.fillText('SCORE: ' + score, 15, 25);
             }
+
             loop();
         }
     </script>
 </body>
+
+</html>
 
 </html>
