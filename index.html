@@ -149,14 +149,9 @@
             text-shadow: var(--shadow-cyan);
         }
 
-        .login-subtitle {
+        .login-subtitle, .header-subtitle {
             font-size: 0.85rem;
-            margin-bottom: 25px;
             color: var(--neon-pink);
-            min-height: 2.2em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             transition: opacity 0.6s ease-in-out;
             opacity: 1;
             font-weight: 600;
@@ -165,8 +160,25 @@
             text-transform: uppercase;
         }
 
-        .login-subtitle.fade-out {
-            opacity: 0;
+        .login-subtitle {
+            margin-bottom: 25px;
+            min-height: 2.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-subtitle {
+            margin: 0 10px;
+            text-align: center;
+            max-width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .fade-out {
+            opacity: 0 !important;
         }
 
         .input-group {
@@ -239,7 +251,7 @@
         }
 
         /* =========================================
-           LAYOUT PRINCIPAL
+           LAYOUT PRINCIPAL Y BUSCADOR
            ========================================= */
         #app-content {
             display: none;
@@ -252,9 +264,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 30px;
+            padding: 15px 25px;
             margin-bottom: 40px;
             border-bottom: 2px solid var(--neon-pink);
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
         .logo-container {
@@ -277,6 +291,40 @@
             background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink), var(--neon-orange), var(--neon-yellow));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        /* BUSCADOR DE JUEGOS */
+        .search-container {
+            position: relative;
+            flex-grow: 1;
+            max-width: 320px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 8px 16px 8px 38px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 20px;
+            color: #fff;
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            box-shadow: var(--shadow-cyan);
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+            color: var(--neon-cyan);
+            pointer-events: none;
         }
 
         .settings-btn {
@@ -399,9 +447,13 @@
             align-items: center;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
             position: relative;
             overflow: hidden;
+        }
+
+        .card.hidden {
+            display: none !important;
         }
 
         .card:hover {
@@ -524,7 +576,7 @@
 
 <body>
 
-    <!-- LOGIN CON LOGO GRANDE Y NUEVAS FRASES ALEATORIAS -->
+    <!-- LOGIN CON LOGO GRANDE Y FRASES ALEATORIAS -->
     <div id="login-screen">
         <div class="glass login-box">
             <img src="imagenes/ASTRO404-logo.png" alt="Astro404 Logo" class="login-logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIj48Y2lyY2xlIGN4PSI2NSIgY3k9IjY1IiByPSI2NSIgZmlsbD0iIzAwRjBGRiIvPjx0ZXh0IHg9IjIwIiB5PSI3NSIgZmlsbD0iIzAwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSIzMCI+NDA0PC90ZXh0Pjwvc3ZnPg=='">
@@ -571,6 +623,16 @@
                 <img src="imagenes/ASTRO404-logo.png" alt="Astro404 Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+PGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iMjUiIGZpbGw9IiMwMEYwRkYiLz48dGV4dCB4PSIxMCIgeT0iMzAiIGZpbGw9IiMwMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC13ZWlnaHQ9ImJvbGQiPjQwNDwvdGV4dD48L3N2Zz4='">
                 <h1>ASTRO404</h1>
             </div>
+
+            <!-- BUSCADOR SUPERIOR DE JUEGOS -->
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="game-search" class="search-input" placeholder="Buscar juego..." onkeyup="filterGames()">
+            </div>
+
+            <!-- FRASES ALEATORIAS EN EL ENCABEZADO -->
+            <div id="header-quote" class="header-subtitle">Cargando la matriz...</div>
+
             <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
         </header>
 
@@ -595,12 +657,12 @@
                 <div class="glass card" onclick="openGame('pacman')">
                     <div class="card-icon">🟡</div>
                     <h3>Pac-Man Arcade Original</h3>
-                    <p>La versión oficial de Google/Namco con mapa, sonido y fantasmas originales.</p>
+                    <p>La versión funcional Arcade en HTML5 con mapa, sonido y jugabilidad exacta.</p>
                     <button class="btn-play">JUGAR</button>
                 </div>
             </div>
 
-            <!-- JUEGOS RETRO Y EMULADORES (MINECRAFT EN LA SECCIÓN R3TR0) -->
+            <!-- JUEGOS RETRO Y EMULADORES -->
             <h2 class="section-title" style="border-color: var(--neon-pink); text-shadow: 0 0 10px rgba(255,0,127,0.5);">🕹️ R3TR0 <span style="font-size:1rem;color:var(--neon-pink)">[Emuladores/Especiales]</span></h2>
             <div class="grid-container">
                 <div class="glass card card-r3tr0" onclick="openDoom()">
@@ -640,6 +702,25 @@
     <!-- JAVASCRIPT COMPLETO -->
     <script>
         /* =========================================
+           SISTEMA DE FILTRADO Y BUSCADOR DE JUEGOS
+           ========================================= */
+        function filterGames() {
+            const query = document.getElementById('game-search').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.card');
+
+            cards.forEach(card => {
+                const title = card.querySelector('h3').innerText.toLowerCase();
+                const desc = card.querySelector('p').innerText.toLowerCase();
+
+                if (title.includes(query) || desc.includes(query)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        /* =========================================
            SISTEMA DE FRASES ALEATORIAS
            ========================================= */
         const quotesList = [
@@ -657,8 +738,8 @@
         let currentQuoteIndex = -1;
 
         function updateRandomQuote() {
-            const quoteElement = document.getElementById('random-quote');
-            if (!quoteElement) return;
+            const loginQuote = document.getElementById('random-quote');
+            const headerQuote = document.getElementById('header-quote');
 
             let randomIndex;
             do {
@@ -667,11 +748,19 @@
 
             currentQuoteIndex = randomIndex;
 
-            quoteElement.classList.add('fade-out');
+            if (loginQuote) loginQuote.classList.add('fade-out');
+            if (headerQuote) headerQuote.classList.add('fade-out');
 
             setTimeout(() => {
-                quoteElement.innerText = quotesList[currentQuoteIndex];
-                quoteElement.classList.remove('fade-out');
+                const text = quotesList[currentQuoteIndex];
+                if (loginQuote) {
+                    loginQuote.innerText = text;
+                    loginQuote.classList.remove('fade-out');
+                }
+                if (headerQuote) {
+                    headerQuote.innerText = text;
+                    headerQuote.classList.remove('fade-out');
+                }
             }, 600);
         }
 
@@ -889,10 +978,10 @@
                 modal.style.display = 'flex';
             } 
             else if (type === 'pacman') {
-                // Carga la versión Oficial de Google/Namco Arcade
-                title.innerText = "Pac-Man Arcade Original (Google/Namco)";
+                // Carga versión HTML5 de Pac-Man compatible sin bloqueos de iframe
+                title.innerText = "Pac-Man Arcade Original";
                 controls.innerText = "Controles: Usa las Flechas del teclado para mover a Pac-Man";
-                viewport.innerHTML = '<iframe src="https://www.google.com/logos/2010/pacman10-i.html" style="width:100%; height:100%; border:none;"></iframe>';
+                viewport.innerHTML = '<iframe src="https://freepacman.org/" style="width:100%; height:100%; border:none;"></iframe>';
                 modal.style.display = 'flex';
             }
         }
