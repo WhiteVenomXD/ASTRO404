@@ -289,6 +289,7 @@
         .logo-container h1 {
             font-size: 1.8rem;
             background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink), var(--neon-orange), var(--neon-yellow));
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -672,10 +673,24 @@
                     <button class="btn-play">EMULAR</button>
                 </div>
 
+                <div class="glass card card-r3tr0" onclick="openMarioWorld()">
+                    <div class="card-icon">🦕</div>
+                    <h3>Super Mario All Stars</h3>
+                    <p>Una colección de los juegos del peludo osito madurito Mario de la NES + SNES.</p>
+                    <button class="btn-play">EMULAR</button>
+                </div>
+
                 <div class="glass card card-r3tr0" onclick="openMario64()">
                     <div class="card-icon">⭐</div>
                     <h3>Super Mario 64</h3>
                     <p>El revolucionario plataformas en 3D de Nintendo 64.</p>
+                    <button class="btn-play">EMULAR</button>
+                </div>
+
+                <div class="glass card card-r3tr0" onclick="openZelda()">
+                    <div class="card-icon">🗡️</div>
+                    <h3>Zelda: A Link to the Past</h3>
+                    <p>La mítica aventura en 2D para Super Nintendo. Explora Hyrule y el Mundo Oscuro.</p>
                     <button class="btn-play">EMULAR</button>
                 </div>
 
@@ -899,6 +914,36 @@
             modal.style.display = 'flex';
         }
 
+        /* ZELDA: A LINK TO THE PAST roms/zelda.sfc */
+        function openZelda() {
+            closeGame();
+            const modal = document.getElementById('game-modal');
+            const viewport = document.getElementById('game-viewport');
+            const title = document.getElementById('game-title');
+            const controls = document.getElementById('game-controls');
+
+            title.innerText = "Zelda: A Link to the Past (SNES)";
+            controls.innerText = "Controles: Teclas A/S/Z/X para botones | Flechas para Mover | Enter: Start | Shift: Select";
+
+            viewport.innerHTML = '<div id="game" style="width:100%;height:100%;"></div>';
+            modal.style.display = 'flex';
+
+            window.EJS_player = '#game';
+            window.EJS_core = 'snes';
+            window.EJS_gameName = 'The Legend of Zelda: A Link to the Past';
+            window.EJS_color = '#00F0FF';
+            window.EJS_startOnLoaded = true;
+            window.EJS_defaultVolume = 1;
+            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+            
+            window.EJS_gameUrl = 'roms/zelda.sfc'; 
+
+            const script = document.createElement('script');
+            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            script.id = 'ejs-script';
+            document.body.appendChild(script);
+        }
+
         /* CARGA DE DOOM MEDIANTE CARPETA LOCAL roms/doom1.wad */
         function openDoom() {
             closeGame();
@@ -920,6 +965,35 @@
             window.EJS_startOnLoaded = true;
             window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
             window.EJS_gameUrl = 'roms/doom1.wad';
+
+            const script = document.createElement('script');
+            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            script.id = 'ejs-script';
+            document.body.appendChild(script);
+        }
+
+        /* El mario world usando el roms/smw.smc */
+        function openMarioWorld() {
+            closeGame();
+            const modal = document.getElementById('game-modal');
+            const viewport = document.getElementById('game-viewport');
+            const title = document.getElementById('game-title');
+            const controls = document.getElementById('game-controls');
+
+            title.innerText = "Super Mario All Stars (SNES)";
+            controls.innerText = "Controles: Teclas A/S/Z/X para botones | Flechas para Mover | Enter: Start | Shift: Select";
+
+            viewport.innerHTML = '<div id="game" style="width:100%;height:100%;"></div>';
+            modal.style.display = 'flex';
+
+            window.EJS_player = '#game';
+            window.EJS_core = 'snes';
+            window.EJS_gameName = 'Super Mario All Star';
+            window.EJS_color = '#00F0FF';
+            window.EJS_startOnLoaded = true;
+            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+            
+            window.EJS_gameUrl = 'roms/SuperMarioWorld.sfc'; 
 
             const script = document.createElement('script');
             script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
