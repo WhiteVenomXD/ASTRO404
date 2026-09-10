@@ -89,7 +89,7 @@
         }
 
         /* =========================================
-           LOGIN
+           LOGIN & LOGO ANIMADO
            ========================================= */
         #login-screen {
             position: fixed;
@@ -109,8 +109,37 @@
             padding: 40px;
             text-align: center;
             width: 90%;
-            max-width: 400px;
+            max-width: 420px;
             animation: pulse-glow 3s infinite alternate;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Logo en grande con resplandor neón */
+        .login-logo {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid var(--neon-cyan);
+            animation: logo-glow 2.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes logo-glow {
+            0% {
+                box-shadow: 0 0 15px var(--neon-cyan), inset 0 0 10px var(--neon-cyan);
+                border-color: var(--neon-cyan);
+            }
+            50% {
+                box-shadow: 0 0 35px var(--neon-pink), inset 0 0 15px var(--neon-pink);
+                border-color: var(--neon-pink);
+            }
+            100% {
+                box-shadow: 0 0 25px var(--neon-yellow), inset 0 0 10px var(--neon-yellow);
+                border-color: var(--neon-yellow);
+            }
         }
 
         .login-box h1 {
@@ -121,10 +150,24 @@
             text-shadow: var(--shadow-cyan);
         }
 
-        .login-box p {
-            font-size: 0.9rem;
+        /* Frase aleatoria con animación de fundido */
+        .login-subtitle {
+            font-size: 0.85rem;
             margin-bottom: 25px;
             color: var(--neon-pink);
+            min-height: 2.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease-in-out;
+            opacity: 1;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(255, 0, 127, 0.4);
+        }
+
+        .login-subtitle.fade-out {
+            opacity: 0;
         }
 
         .input-group {
@@ -132,6 +175,7 @@
             flex-direction: column;
             gap: 10px;
             text-align: left;
+            width: 100%;
         }
 
         .input-group label {
@@ -167,6 +211,7 @@
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            width: 100%;
         }
 
         .btn-neon:hover {
@@ -180,6 +225,7 @@
             font-size: 0.8rem;
             margin-top: 10px;
             height: 15px;
+            text-align: center;
         }
 
         @keyframes pulse-glow {
@@ -479,11 +525,12 @@
 
 <body>
 
-    <!-- LOGIN -->
+    <!-- LOGIN CON LOGO GRANDE Y FRASES ALEATORIAS -->
     <div id="login-screen">
         <div class="glass login-box">
+            <img src="imagenes/ASTRO404-logo.png" alt="Astro404 Logo" class="login-logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIj48Y2lyY2xlIGN4PSI2NSIgY3k9IjY1IiByPSI2NSIgZmlsbD0iIzAwRjBGRiIvPjx0ZXh0IHg9IjIwIiB5PSI3NSIgZmlsbD0iIzAwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSIzMCI+NDA0PC90ZXh0Pjwvc3ZnPg=='">
             <h1>ASTRO404</h1>
-            <p>PORTAL DIMENSIONAL RESTRINGIDO</p>
+            <div id="random-quote" class="login-subtitle">Cargando la matriz...</div>
             <div class="input-group">
                 <label for="password-input">CONTRASEÑA:</label>
                 <input type="password" id="password-input" placeholder="Introduce la clave...">
@@ -529,7 +576,7 @@
         </header>
 
         <main>
-            <!-- JUEGOS NATIVOS HTML5 -->
+            <!-- JUEGOS NATIVOS HTML5 & WEB -->
             <h2 class="section-title">👾 4RCAD3 <span style="font-size:1rem;color:var(--neon-cyan)">[HTML5/JS]</span></h2>
             <div class="grid-container">
                 <div class="glass card" onclick="openGame('snake')">
@@ -552,6 +599,14 @@
                     <p>El mítico juego de arcade: laberinto, fantasmas (Blinky, Pinky, Inky, Clyde) y cocos.</p>
                     <button class="btn-play">JUGAR</button>
                 </div>
+
+                <!-- AÑADIDO MINECRAFT WEB ONLINE -->
+                <div class="glass card" onclick="openMinecraft()">
+                    <div class="card-icon">🧊</div>
+                    <h3>Minecraft Web (Eagler)</h3>
+                    <p>Minecraft 1.8 en HTML5 con multijugador online funcional para jugar con amigos.</p>
+                    <button class="btn-play">JUGAR ONLINE</button>
+                </div>
             </div>
 
             <!-- JUEGOS RETRO (EMULADOR) -->
@@ -564,7 +619,6 @@
                     <button class="btn-play">EMULAR</button>
                 </div>
 
-                <!-- AÑADIDO SUPER MARIO 64 -->
                 <div class="glass card card-r3tr0" onclick="openMario64()">
                     <div class="card-icon">⭐</div>
                     <h3>Super Mario 64</h3>
@@ -587,6 +641,49 @@
 
     <!-- JAVASCRIPT COMPLETO -->
     <script>
+        /* =========================================
+           SISTEMA DE FRASES ALEATORIAS
+           ========================================= */
+        // Puedes añadir aquí directamente las frases que quieras entre comillas
+        const quotesList = [
+            "EL RINCÓN ANTIVIRUS DE LA RED",
+            "MÁS RÁPIDO QUE MI CONEXIÓN A INTERNET",
+            "CERO ANUNCIOS, CERO HISTORIAS",
+            "insert coin to start...",
+            "¡CUIDADO CON EL FANTASMA ROJO!",
+            "BIENVENIDO AL PORTAL ESPACIAL",
+            "ROMPIENDO LAS LEYES DEL ESPACIO-TIEMPO",
+            "MÁS NOSTALGIA QUE EN TUS ARCHIVOS DE SECUNDARIA",
+            "HECHO POR Y PARA JUGADORES",
+            "LA MATRIZ SE ESTÁ RECONFIGURANDO..."
+        ];
+
+        let currentQuoteIndex = -1;
+
+        function updateRandomQuote() {
+            const quoteElement = document.getElementById('random-quote');
+            if (!quoteElement) return;
+
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * quotesList.length);
+            } while (randomIndex === currentQuoteIndex && quotesList.length > 1);
+
+            currentQuoteIndex = randomIndex;
+
+            // Transición de fundido (Fade out -> Cambiar texto -> Fade in)
+            quoteElement.classList.add('fade-out');
+
+            setTimeout(() => {
+                quoteElement.innerText = quotesList[currentQuoteIndex];
+                quoteElement.classList.remove('fade-out');
+            }, 600);
+        }
+
+        // Iniciar el ciclo de frases cambiando cada 5 segundos
+        updateRandomQuote();
+        setInterval(updateRandomQuote, 5000);
+
         /* =========================================
            SISTEMA DE LOGIN
            ========================================= */
@@ -694,33 +791,35 @@
             document.getElementById('game-modal').style.display = 'none';
             document.getElementById('game-viewport').innerHTML = '';
 
+            delete window.EJS_player;
+            delete window.EJS_core;
+            delete window.EJS_gameName;
+            delete window.EJS_gameUrl;
+
             const oldScript = document.getElementById('ejs-script');
             if (oldScript) oldScript.remove();
 
-            if (currentGameInterval) {
-                clearInterval(currentGameInterval);
-                currentGameInterval = null;
-            }
-            if (currentGameAnimationFrame) {
-                cancelAnimationFrame(currentGameAnimationFrame);
-                currentGameAnimationFrame = null;
-            }
-            if (snakeKeyHandler) {
-                window.removeEventListener('keydown', snakeKeyHandler);
-                snakeKeyHandler = null;
-            }
-            if (dinoKeyHandler) {
-                window.removeEventListener('keydown', dinoKeyHandler);
-                dinoKeyHandler = null;
-            }
-            if (dinoKeyUpHandler) {
-                window.removeEventListener('keyup', dinoKeyUpHandler);
-                dinoKeyUpHandler = null;
-            }
-            if (pacKeyHandler) {
-                window.removeEventListener('keydown', pacKeyHandler);
-                pacKeyHandler = null;
-            }
+            if (currentGameInterval) { clearInterval(currentGameInterval); currentGameInterval = null; }
+            if (currentGameAnimationFrame) { cancelAnimationFrame(currentGameAnimationFrame); currentGameAnimationFrame = null; }
+            if (snakeKeyHandler) { window.removeEventListener('keydown', snakeKeyHandler); snakeKeyHandler = null; }
+            if (dinoKeyHandler) { window.removeEventListener('keydown', dinoKeyHandler); dinoKeyHandler = null; }
+            if (dinoKeyUpHandler) { window.removeEventListener('keyup', dinoKeyUpHandler); dinoKeyUpHandler = null; }
+            if (pacKeyHandler) { window.removeEventListener('keydown', pacKeyHandler); pacKeyHandler = null; }
+        }
+
+        /* MINECRAFT WEB (EAGLERCRAFT) */
+        function openMinecraft() {
+            closeGame();
+            const modal = document.getElementById('game-modal');
+            const viewport = document.getElementById('game-viewport');
+            const title = document.getElementById('game-title');
+            const controls = document.getElementById('game-controls');
+
+            title.innerText = "Minecraft Web 1.8 (Eaglercraft)";
+            controls.innerText = "Controles: WASD para Moverte | Espacio: Saltar | Click Izquierdo: Romper | Click Derecho: Bloque / Usar";
+
+            viewport.innerHTML = '<iframe src="https://eaglercraft.q13x.com/" style="width:100%; height:100%; border:none;"></iframe>';
+            modal.style.display = 'flex';
         }
 
         /* CARGA DE DOOM MEDIANTE CARPETA LOCAL roms/doom1.wad */
@@ -760,7 +859,7 @@
             const controls = document.getElementById('game-controls');
 
             title.innerText = "Super Mario 64 (N64)";
-            controls.innerText = "Controles: Flechas para moverte | Z/X/A/S para botones | Enter: Start";
+            controls.innerText = "Controles: Teclas A/S/Z/X para botones | Flechas para Mover | Enter: Start";
 
             viewport.innerHTML = '<div id="game" style="width:100%;height:100%;"></div>';
             modal.style.display = 'flex';
@@ -1099,7 +1198,6 @@
             }
 
             function update() {
-                // Movimiento Pacman alineado a rejilla
                 let centerTargetX = pacman.x * tileSize + tileSize / 2;
                 let centerTargetY = pacman.y * tileSize + tileSize / 2;
 
@@ -1124,7 +1222,6 @@
                         pacman.dirY = 0;
                     }
 
-                    // Comer Cocos
                     if (map[pacman.y][pacman.x] === 0) {
                         map[pacman.y][pacman.x] = 2;
                         score += 10;
@@ -1134,11 +1231,9 @@
                 pacman.px += pacman.dirX * pacman.speed;
                 pacman.py += pacman.dirY * pacman.speed;
 
-                // Animación Boca
                 mouthAngle += mouthSpeed;
                 if (mouthAngle > 0.4 || mouthAngle < 0.05) mouthSpeed = -mouthSpeed;
 
-                // Movimiento Fantasmas
                 ghosts.forEach(g => {
                     let gCenterX = g.x * tileSize + tileSize / 2;
                     let gCenterY = g.y * tileSize + tileSize / 2;
@@ -1166,7 +1261,6 @@
                     g.px += g.dirX * g.speed;
                     g.py += g.dirY * g.speed;
 
-                    // Colisión
                     let dist = Math.hypot(pacman.px - g.px, pacman.py - g.py);
                     if (dist < tileSize * 0.8) {
                         alert('¡GAME OVER PAC-MAN! Puntuación final: ' + score);
@@ -1174,14 +1268,12 @@
                     }
                 });
 
-                // RENDERIZADO
                 ctx.fillStyle = '#000000';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
                 ctx.save();
                 ctx.translate(offsetX, offsetY);
 
-                // Dibujar Laberinto
                 for (let r = 0; r < rows; r++) {
                     for (let c = 0; c < cols; c++) {
                         if (map[r][c] === 1) {
@@ -1196,7 +1288,6 @@
                     }
                 }
 
-                // Dibujar Pacman
                 ctx.save();
                 ctx.translate(pacman.px, pacman.py);
                 ctx.rotate(pacman.rotation);
@@ -1207,7 +1298,6 @@
                 ctx.fill();
                 ctx.restore();
 
-                // Dibujar Fantasmas
                 ghosts.forEach(g => {
                     ctx.fillStyle = g.color;
                     ctx.beginPath();
@@ -1216,7 +1306,6 @@
                     ctx.lineTo(g.px - tileSize / 2 + 2, g.py + tileSize / 2 - 2);
                     ctx.fill();
 
-                    // Ojos Fantasma
                     ctx.fillStyle = '#FFFFFF';
                     ctx.beginPath();
                     ctx.arc(g.px - 4, g.py - 4, 3, 0, Math.PI * 2);
@@ -1231,7 +1320,6 @@
 
                 ctx.restore();
 
-                // Puntuación
                 ctx.fillStyle = '#FFFFFF';
                 ctx.font = 'bold 16px Orbitron';
                 ctx.fillText('SCORE: ' + score, 20, 30);
