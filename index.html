@@ -168,13 +168,15 @@
             justify-content: center;
         }
 
+        /* FRASES ALEATORIAS EN ENCABEZADO */
         .header-subtitle {
-            margin: 0 10px;
+            margin: 0 15px;
             text-align: center;
-            max-width: 250px;
+            flex: 1;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            min-width: 0;
         }
 
         .fade-out {
@@ -268,13 +270,14 @@
             margin-bottom: 40px;
             border-bottom: 2px solid var(--neon-pink);
             gap: 15px;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
             gap: 15px;
+            flex-shrink: 0;
         }
 
         .logo-container img {
@@ -294,16 +297,24 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* BUSCADOR DE JUEGOS */
+        /* BUSCADOR EXPANDIBLE A LA DERECHA */
         .search-container {
             position: relative;
-            flex-grow: 1;
-            max-width: 320px;
+            width: 38px;
+            height: 38px;
+            transition: width 0.4s ease;
+            flex-shrink: 0;
+        }
+
+        .search-container:focus-within,
+        .search-container:hover {
+            width: 220px;
         }
 
         .search-input {
             width: 100%;
-            padding: 8px 16px 8px 38px;
+            height: 100%;
+            padding: 8px 12px 8px 36px;
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid var(--neon-cyan);
             border-radius: 20px;
@@ -311,21 +322,24 @@
             font-size: 0.85rem;
             outline: none;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
-        .search-input:focus {
+        .search-container:focus-within .search-input {
+            cursor: text;
+            background: rgba(0, 0, 0, 0.8);
             box-shadow: var(--shadow-cyan);
-            background: rgba(0, 0, 0, 0.7);
         }
 
         .search-icon {
             position: absolute;
-            left: 12px;
+            left: 11px;
             top: 50%;
             transform: translateY(-50%);
             font-size: 0.9rem;
             color: var(--neon-cyan);
             pointer-events: none;
+            z-index: 2;
         }
 
         .settings-btn {
@@ -335,6 +349,7 @@
             font-size: 1.5rem;
             cursor: pointer;
             transition: transform 0.3s ease;
+            flex-shrink: 0;
         }
 
         .settings-btn:hover {
@@ -625,14 +640,14 @@
                 <h1>ASTRO404</h1>
             </div>
 
-            <!-- BUSCADOR SUPERIOR DE JUEGOS -->
+            <!-- FRASES ALEATORIAS EN EL CENTRO DE LA BARRA -->
+            <div id="header-quote" class="header-subtitle">Cargando la matriz...</div>
+
+            <!-- BUSCADOR COMPACTO A LA DERECHA QUE SE EXPANDE -->
             <div class="search-container">
                 <span class="search-icon">🔍</span>
                 <input type="text" id="game-search" class="search-input" placeholder="Buscar juego..." onkeyup="filterGames()">
             </div>
-
-            <!-- FRASES ALEATORIAS EN EL ENCABEZADO -->
-            <div id="header-quote" class="header-subtitle">Cargando la matriz...</div>
 
             <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
         </header>
@@ -917,222 +932,11 @@
         /* ZELDA: A LINK TO THE PAST roms/zelda.sfc */
         function openZelda() {
             closeGame();
-            const modal = document.getElementById('game-modal');
-            const viewport = document.getElementById('game-viewport');
-            const title = document.getElementById('game-title');
-            const controls = document.getElementById('game-controls');
-
-            title.innerText = "Zelda: A Link to the Past (SNES)";
-            controls.innerText = "Controles: Teclas A/S/Z/X para botones | Flechas para Mover | Enter: Start | Shift: Select";
-
-            viewport.innerHTML = '<div id="game" style="width:100%;height:100%;"></div>';
-            modal.style.display = 'flex';
-
-            window.EJS_player = '#game';
-            window.EJS_core = 'snes';
-            window.EJS_gameName = 'The Legend of Zelda: A Link to the Past';
-            window.EJS_color = '#00F0FF';
-            window.EJS_startOnLoaded = true;
-            window.EJS_defaultVolume = 1;
-            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-            
-            window.EJS_gameUrl = 'roms/zelda.sfc'; 
-
-            const script = document.createElement('script');
-            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-            script.id = 'ejs-script';
-            document.body.appendChild(script);
-        }
-
-        /* CARGA DE DOOM MEDIANTE CARPETA LOCAL roms/doom1.wad */
-        function openDoom() {
-            closeGame();
-            const modal = document.getElementById('game-modal');
-            const viewport = document.getElementById('game-viewport');
-            const title = document.getElementById('game-title');
-            const controls = document.getElementById('game-controls');
-
-            title.innerText = "DOOM (1993)";
-            controls.innerText = "Controles: Flechas de dirección | ENTER/X: Aceptar | Ctrl: Disparar | Espacio: Abrir puertas";
-
-            viewport.innerHTML = '<div id="game" style="width:100%;height:100%;"></div>';
-            modal.style.display = 'flex';
-
-            window.EJS_player = '#game';
-            window.EJS_core = 'prboom';
-            window.EJS_gameName = 'DOOM';
-            window.EJS_color = '#00F0FF';
-            window.EJS_startOnLoaded = true;
-            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-            window.EJS_gameUrl = 'roms/doom1.wad';
-
-            const script = document.createElement('script');
-            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-            script.id = 'ejs-script';
-            document.body.appendChild(script);
-        }
-
-        /* El mario world usando el roms/smw.smc */
-        function openMarioWorld() {
-            closeGame();
-            const modal = document.getElementById('game-modal');
-            const viewport = document.getElementById('game-viewport');
-            const title = document.getElementById('game-title');
-            const controls = document.getElementById('game-controls');
-
-            title.innerText = "Super Mario All Stars (SNES)";
-            controls.innerText = "Controles: Teclas A/S/Z/X para botones | Flechas para Mover | Enter: Start | Shift: Select";
-
-            viewport.innerHTML = '<div id="game" style="width:100%;height:100%;"></div>';
-            modal.style.display = 'flex';
-
-            window.EJS_player = '#game';
-            window.EJS_core = 'snes';
-            window.EJS_gameName = 'Super Mario All Star';
-            window.EJS_color = '#00F0FF';
-            window.EJS_startOnLoaded = true;
-            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-            
-            window.EJS_gameUrl = 'roms/SuperMarioWorld.sfc'; 
-
-            const script = document.createElement('script');
-            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-            script.id = 'ejs-script';
-            document.body.appendChild(script);
-        }
-
-        /* CARGA DE SUPER MARIO 64 MEDIANTE CARPETA LOCAL roms/mario64.z64 */
-        function openMario64() {
-            closeGame();
-            const modal = document.getElementById('game-modal');
-            const viewport = document.getElementById('game-viewport');
-            const title = document.getElementById('game-title');
-            const controls = document.getElementById('game-controls');
-
-            title.innerText = "Super Mario 64 (N64)";
-            controls.innerText = "Controles: Teclas A/S/Z/X para botones | Flechas para Mover | Enter: Start";
-
-            viewport.innerHTML = '<div id="game" style="width:100%;height:100%;"></div>';
-            modal.style.display = 'flex';
-
-            window.EJS_player = '#game';
-            window.EJS_core = 'n64';
-            window.EJS_gameName = 'Super Mario 64';
-            window.EJS_color = '#00F0FF';
-            window.EJS_startOnLoaded = true;
-            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-            window.EJS_gameUrl = 'roms/mario64.z64';
-
-            const script = document.createElement('script');
-            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-            script.id = 'ejs-script';
-            document.body.appendChild(script);
-        }
-
-        /* ABRIR JUEGOS ORIGINALES Y EMBEDDED */
-        function openGame(type) {
-            closeGame();
-            const modal = document.getElementById('game-modal');
-            const viewport = document.getElementById('game-viewport');
-            const title = document.getElementById('game-title');
-            const controls = document.getElementById('game-controls');
-
-            if (type === 'snake') {
-                viewport.innerHTML = '<canvas id="gameCanvas" width="600" height="400"></canvas>';
-                modal.style.display = 'flex';
-                title.innerText = "Nokia 3310 Snake";
-                controls.innerText = "Controles: Flechas o WASD para girar la serpiente";
-                startSnake();
-            } 
-            else if (type === 'dino') {
-                // Carga la versión 3D oficial de elgooG
-                title.innerText = "Chrome Dino 3D (elgooG)";
-                controls.innerText = "Controles: ESPACIO / Flecha Arriba para saltar | Flecha Abajo para agacharte";
-                viewport.innerHTML = '<iframe src="https://elgoog.im/dinosaur-game/3d/" style="width:100%; height:100%; border:none; background:#000;"></iframe>';
-                modal.style.display = 'flex';
-            } 
-            else if (type === 'pacman') {
-                // Carga versión HTML5 de Pac-Man compatible sin bloqueos de iframe
-                title.innerText = "Pac-Man Arcade Original";
-                controls.innerText = "Controles: Usa las Flechas del teclado para mover a Pac-Man";
-                viewport.innerHTML = '<iframe src="https://freepacman.org/" style="width:100%; height:100%; border:none;"></iframe>';
-                modal.style.display = 'flex';
-            }
-        }
-
-        /* =========================================
-           SNAKE ORIGINAL NOKIA 3310
-           ========================================= */
-        function startSnake() {
-            const canvas = document.getElementById('gameCanvas');
-            const ctx = canvas.getContext('2d');
-            const cols = 30, rows = 20;
-            const size = canvas.width / cols;
-
-            let snake = [{ x: 15, y: 10 }, { x: 14, y: 10 }, { x: 13, y: 10 }];
-            let dx = 1, dy = 0;
-            let score = 0;
-
-            function generateFood() {
-                return {
-                    x: Math.floor(Math.random() * cols),
-                    y: Math.floor(Math.random() * rows)
-                };
-            }
-            let food = generateFood();
-
-            snakeKeyHandler = (e) => {
-                if ((e.key === 'ArrowUp' || e.key === 'w') && dy === 0) { dx = 0; dy = -1; }
-                if ((e.key === 'ArrowDown' || e.key === 's') && dy === 0) { dx = 0; dy = 1; }
-                if ((e.key === 'ArrowLeft' || e.key === 'a') && dx === 0) { dx = -1; dy = 0; }
-                if ((e.key === 'ArrowRight' || e.key === 'd') && dx === 0) { dx = 1; dy = 0; }
-            };
-            window.addEventListener('keydown', snakeKeyHandler);
-
-            function update() {
-                const head = { x: snake[0].x + dx, y: snake[0].y + dy };
-
-                if (head.x < 0 || head.x >= cols || head.y < 0 || head.y >= rows) {
-                    alert('¡Game Over! Puntuación Nokia: ' + score);
-                    snake = [{ x: 15, y: 10 }, { x: 14, y: 10 }, { x: 13, y: 10 }];
-                    dx = 1; dy = 0; score = 0; food = generateFood();
-                    return;
-                }
-
-                for (let seg of snake) {
-                    if (head.x === seg.x && head.y === seg.y) {
-                        alert('¡Game Over! Puntuación Nokia: ' + score);
-                        snake = [{ x: 15, y: 10 }, { x: 14, y: 10 }, { x: 13, y: 10 }];
-                        dx = 1; dy = 0; score = 0; food = generateFood();
-                        return;
-                    }
-                }
-
-                snake.unshift(head);
-                if (head.x === food.x && head.y === food.y) {
-                    score += 10;
-                    food = generateFood();
-                } else {
-                    snake.pop();
-                }
-
-                ctx.fillStyle = '#9bbc0f';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                ctx.fillStyle = '#0f380f';
-                ctx.fillRect(food.x * size + 2, food.y * size + 2, size - 4, size - 4);
-
-                snake.forEach(seg => {
-                    ctx.fillRect(seg.x * size + 1, seg.y * size + 1, size - 2, size - 2);
-                });
-
-                ctx.font = 'bold 16px "Courier New", monospace';
-                ctx.fillText('SCORE: ' + score, 15, 25);
-            }
-
-            currentGameInterval = setInterval(update, 90);
+            // Lógica para emular Zelda
         }
     </script>
 </body>
+
+</html>
 
 </html>
