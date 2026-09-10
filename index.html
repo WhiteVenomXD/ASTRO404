@@ -116,7 +116,6 @@
             align-items: center;
         }
 
-        /* Logo en grande con resplandor neón */
         .login-logo {
             width: 130px;
             height: 130px;
@@ -150,7 +149,6 @@
             text-shadow: var(--shadow-cyan);
         }
 
-        /* Frase aleatoria con animación de fundido */
         .login-subtitle {
             font-size: 0.85rem;
             margin-bottom: 25px;
@@ -589,20 +587,20 @@
 
                 <div class="glass card" onclick="openGame('dino')">
                     <div class="card-icon">🦖</div>
-                    <h3>Chrome Dino Original</h3>
-                    <p>Física real, aceleración, agacharse con flecha abajo, cactus y pterodáctilos.</p>
-                    <button class="btn-play">JUGAR</button>
+                    <h3>Chrome Dino 3D (elgooG)</h3>
+                    <p>La famosa versión en tres dimensiones con entorno dinámico de elgooG.</p>
+                    <button class="btn-play">JUGAR 3D</button>
                 </div>
 
                 <div class="glass card" onclick="openGame('pacman')">
                     <div class="card-icon">🟡</div>
-                    <h3>Pac-Man Original</h3>
-                    <p>El mítico juego de arcade: laberinto, fantasmas (Blinky, Pinky, Inky, Clyde) y cocos.</p>
+                    <h3>Pac-Man Arcade Original</h3>
+                    <p>La versión oficial de Google/Namco con mapa, sonido y fantasmas originales.</p>
                     <button class="btn-play">JUGAR</button>
                 </div>
             </div>
 
-            <!-- JUEGOS RETRO Y EMULADORES (MINECRAFT MOVIDO AQUÍ) -->
+            <!-- JUEGOS RETRO Y EMULADORES (MINECRAFT EN LA SECCIÓN R3TR0) -->
             <h2 class="section-title" style="border-color: var(--neon-pink); text-shadow: 0 0 10px rgba(255,0,127,0.5);">🕹️ R3TR0 <span style="font-size:1rem;color:var(--neon-pink)">[Emuladores/Especiales]</span></h2>
             <div class="grid-container">
                 <div class="glass card card-r3tr0" onclick="openDoom()">
@@ -619,7 +617,6 @@
                     <button class="btn-play">EMULAR</button>
                 </div>
 
-                <!-- MINECRAFT MOVIDO A LA SECCIÓN R3TR0 -->
                 <div class="glass card card-r3tr0" onclick="openMinecraft()">
                     <div class="card-icon">🧊</div>
                     <h3>Minecraft Web (Eagler)</h3>
@@ -670,7 +667,6 @@
 
             currentQuoteIndex = randomIndex;
 
-            // Transición de fundido
             quoteElement.classList.add('fade-out');
 
             setTimeout(() => {
@@ -679,7 +675,6 @@
             }, 600);
         }
 
-        // Iniciar el ciclo de frases cambiando cada 5 segundos
         updateRandomQuote();
         setInterval(updateRandomQuote, 5000);
 
@@ -782,9 +777,6 @@
         let currentGameInterval = null;
         let currentGameAnimationFrame = null;
         let snakeKeyHandler = null;
-        let dinoKeyHandler = null;
-        let dinoKeyUpHandler = null;
-        let pacKeyHandler = null;
 
         function closeGame() {
             document.getElementById('game-modal').style.display = 'none';
@@ -801,9 +793,6 @@
             if (currentGameInterval) { clearInterval(currentGameInterval); currentGameInterval = null; }
             if (currentGameAnimationFrame) { cancelAnimationFrame(currentGameAnimationFrame); currentGameAnimationFrame = null; }
             if (snakeKeyHandler) { window.removeEventListener('keydown', snakeKeyHandler); snakeKeyHandler = null; }
-            if (dinoKeyHandler) { window.removeEventListener('keydown', dinoKeyHandler); dinoKeyHandler = null; }
-            if (dinoKeyUpHandler) { window.removeEventListener('keyup', dinoKeyUpHandler); dinoKeyUpHandler = null; }
-            if (pacKeyHandler) { window.removeEventListener('keydown', pacKeyHandler); pacKeyHandler = null; }
         }
 
         /* MINECRAFT WEB (EAGLERCRAFT) */
@@ -877,7 +866,7 @@
             document.body.appendChild(script);
         }
 
-        /* ABRIR JUEGOS HTML5 */
+        /* ABRIR JUEGOS ORIGINALES Y EMBEDDED */
         function openGame(type) {
             closeGame();
             const modal = document.getElementById('game-modal');
@@ -885,26 +874,31 @@
             const title = document.getElementById('game-title');
             const controls = document.getElementById('game-controls');
 
-            viewport.innerHTML = '<canvas id="gameCanvas" width="600" height="400"></canvas>';
-            modal.style.display = 'flex';
-
             if (type === 'snake') {
+                viewport.innerHTML = '<canvas id="gameCanvas" width="600" height="400"></canvas>';
+                modal.style.display = 'flex';
                 title.innerText = "Nokia 3310 Snake";
                 controls.innerText = "Controles: Flechas o WASD para girar la serpiente";
                 startSnake();
-            } else if (type === 'dino') {
-                title.innerText = "Chrome Dino Original";
-                controls.innerText = "Controles: ESPACIO/ARRIBA para saltar | ABAJO para agacharse o caer rápido";
-                startDino();
-            } else if (type === 'pacman') {
-                title.innerText = "Pac-Man Arcade";
-                controls.innerText = "Controles: Flechas de dirección o WASD para mover a Pac-Man";
-                startPacman();
+            } 
+            else if (type === 'dino') {
+                // Carga la versión 3D oficial de elgooG
+                title.innerText = "Chrome Dino 3D (elgooG)";
+                controls.innerText = "Controles: ESPACIO / Flecha Arriba para saltar | Flecha Abajo para agacharte";
+                viewport.innerHTML = '<iframe src="https://elgoog.im/dinosaur-game/3d/" style="width:100%; height:100%; border:none; background:#000;"></iframe>';
+                modal.style.display = 'flex';
+            } 
+            else if (type === 'pacman') {
+                // Carga la versión Oficial de Google/Namco Arcade
+                title.innerText = "Pac-Man Arcade Original (Google/Namco)";
+                controls.innerText = "Controles: Usa las Flechas del teclado para mover a Pac-Man";
+                viewport.innerHTML = '<iframe src="https://www.google.com/logos/2010/pacman10-i.html" style="width:100%; height:100%; border:none;"></iframe>';
+                modal.style.display = 'flex';
             }
         }
 
         /* =========================================
-           1. SNAKE ORIGINAL NOKIA 3310
+           SNAKE ORIGINAL NOKIA 3310
            ========================================= */
         function startSnake() {
             const canvas = document.getElementById('gameCanvas');
@@ -974,359 +968,6 @@
             }
 
             currentGameInterval = setInterval(update, 90);
-        }
-
-        /* =========================================
-           2. DINOSAURIO ORIGINAL DE CHROME
-           ========================================= */
-        function startDino() {
-            const canvas = document.getElementById('gameCanvas');
-            const ctx = canvas.getContext('2d');
-
-            let gameSpeed = 6;
-            let score = 0;
-            let frameCount = 0;
-
-            let dino = {
-                x: 50, y: 310, w: 44, h: 47,
-                dy: 0, gravity: 0.6, jump: -12,
-                grounded: true, ducking: false
-            };
-
-            let obstacles = [];
-
-            dinoKeyHandler = (e) => {
-                if ((e.code === 'Space' || e.code === 'ArrowUp' || e.key === 'w') && dino.grounded) {
-                    dino.dy = dino.jump;
-                    dino.grounded = false;
-                }
-                if ((e.code === 'ArrowDown' || e.key === 's') && !dino.grounded) {
-                    dino.dy += 4;
-                }
-                if ((e.code === 'ArrowDown' || e.key === 's') && dino.grounded) {
-                    dino.ducking = true;
-                    dino.h = 26;
-                    dino.y = 331;
-                }
-            };
-
-            dinoKeyUpHandler = (e) => {
-                if ((e.code === 'ArrowDown' || e.key === 's') && dino.ducking) {
-                    dino.ducking = false;
-                    dino.h = 47;
-                    dino.y = 310;
-                }
-            };
-
-            window.addEventListener('keydown', dinoKeyHandler);
-            window.addEventListener('keyup', dinoKeyUpHandler);
-
-            function drawDino() {
-                ctx.fillStyle = '#535353';
-                if (dino.ducking) {
-                    ctx.fillRect(dino.x, dino.y, 55, 25);
-                    ctx.fillRect(dino.x + 35, dino.y - 5, 20, 10);
-                } else {
-                    ctx.fillRect(dino.x + 20, dino.y, 20, 16);
-                    ctx.fillRect(dino.x + 30, dino.y + 4, 14, 6);
-                    ctx.fillRect(dino.x + 10, dino.y + 14, 24, 16);
-                    ctx.fillRect(dino.x, dino.y + 20, 14, 14);
-                    if (Math.floor(frameCount / 6) % 2 === 0 || !dino.grounded) {
-                        ctx.fillRect(dino.x + 12, dino.y + 30, 6, 17);
-                        ctx.fillRect(dino.x + 24, dino.y + 30, 6, 10);
-                    } else {
-                        ctx.fillRect(dino.x + 12, dino.y + 30, 6, 10);
-                        ctx.fillRect(dino.x + 24, dino.y + 30, 6, 17);
-                    }
-                }
-            }
-
-            function spawnObstacle() {
-                const isPterodactyl = score > 150 && Math.random() < 0.3;
-                if (isPterodactyl) {
-                    const heights = [260, 295, 320];
-                    const pY = heights[Math.floor(Math.random() * heights.length)];
-                    obstacles.push({ type: 'ptero', x: canvas.width, y: pY, w: 40, h: 30 });
-                } else {
-                    const size = Math.random() < 0.5 ? 1 : 2;
-                    obstacles.push({ type: 'cactus', x: canvas.width, y: 310, w: 23 * size, h: 46 });
-                }
-            }
-
-            function loop() {
-                currentGameAnimationFrame = requestAnimationFrame(loop);
-                frameCount++;
-                score += 0.15;
-                gameSpeed += 0.001;
-
-                ctx.fillStyle = '#f7f7f7';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                ctx.strokeStyle = '#535353';
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.moveTo(0, 356);
-                ctx.lineTo(canvas.width, 356);
-                ctx.stroke();
-
-                dino.dy += dino.gravity;
-                dino.y += dino.dy;
-
-                const baseGround = dino.ducking ? 331 : 310;
-                if (dino.y >= baseGround) {
-                    dino.y = baseGround;
-                    dino.dy = 0;
-                    dino.grounded = true;
-                }
-
-                drawDino();
-
-                if (frameCount % Math.max(60, Math.floor(120 - gameSpeed * 3)) === 0) {
-                    if (Math.random() < 0.7) spawnObstacle();
-                }
-
-                ctx.fillStyle = '#535353';
-                for (let i = obstacles.length - 1; i >= 0; i--) {
-                    let obs = obstacles[i];
-                    obs.x -= gameSpeed;
-
-                    if (obs.type === 'cactus') {
-                        ctx.fillRect(obs.x, obs.y, obs.w, obs.h);
-                        ctx.fillRect(obs.x - 4, obs.y + 10, obs.w + 8, 12);
-                    } else {
-                        ctx.fillRect(obs.x, obs.y, obs.w, obs.h);
-                        const wing = Math.floor(frameCount / 10) % 2 === 0 ? -10 : 10;
-                        ctx.fillRect(obs.x + 10, obs.y + wing, 12, 15);
-                    }
-
-                    if (
-                        dino.x < obs.x + obs.w &&
-                        dino.x + (dino.ducking ? 55 : 34) > obs.x &&
-                        dino.y < obs.y + obs.h &&
-                        dino.y + dino.h > obs.y
-                    ) {
-                        alert('¡GAME OVER! Puntuación: ' + Math.floor(score));
-                        obstacles = [];
-                        score = 0;
-                        gameSpeed = 6;
-                        frameCount = 0;
-                        dino.y = 310;
-                        return;
-                    }
-
-                    if (obs.x + obs.w < 0) obstacles.splice(i, 1);
-                }
-
-                ctx.fillStyle = '#535353';
-                ctx.font = 'bold 18px monospace';
-                ctx.fillText('HI ' + String(Math.floor(score)).padStart(5, '0'), canvas.width - 120, 30);
-            }
-
-            loop();
-        }
-
-        /* =========================================
-           3. PAC-MAN ARCADE ORIGINAL
-           ========================================= */
-        function startPacman() {
-            const canvas = document.getElementById('gameCanvas');
-            const ctx = canvas.getContext('2d');
-
-            const map = [
-                [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-                [1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1],
-                [1,0,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,1],
-                [1,0,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,1],
-                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-                [1,0,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,0,1],
-                [1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1],
-                [1,1,1,1,0,1,1,1,2,1,2,1,1,1,0,1,1,1,1],
-                [1,2,2,2,0,2,2,2,2,2,2,2,2,2,0,2,2,2,1],
-                [1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1],
-                [1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1],
-                [1,0,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,1],
-                [1,0,0,1,0,0,0,0,0,2,0,0,0,0,0,1,0,0,1],
-                [1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1],
-                [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-            ];
-
-            const rows = map.length;
-            const cols = map[0].length;
-            const tileSize = 24;
-            const offsetX = (canvas.width - cols * tileSize) / 2;
-            const offsetY = (canvas.height - rows * tileSize) / 2;
-
-            let score = 0;
-            let mouthAngle = 0.2;
-            let mouthSpeed = 0.02;
-
-            let pacman = {
-                x: 9, y: 8,
-                px: 9 * tileSize + tileSize / 2,
-                py: 8 * tileSize + tileSize / 2,
-                dirX: 0, dirY: 0,
-                nextDirX: 0, nextDirY: 0,
-                speed: 2,
-                rotation: 0
-            };
-
-            let ghosts = [
-                { x: 9, y: 6, color: '#FF0000', dirX: 1, dirY: 0 },  // Blinky
-                { x: 8, y: 7, color: '#FFB8FF', dirX: -1, dirY: 0 }, // Pinky
-                { x: 10, y: 7, color: '#00FFFF', dirX: 0, dirY: -1 },// Inky
-                { x: 9, y: 7, color: '#FFB852', dirX: 0, dirY: 1 }   // Clyde
-            ];
-
-            ghosts.forEach(g => {
-                g.px = g.x * tileSize + tileSize / 2;
-                g.py = g.y * tileSize + tileSize / 2;
-                g.speed = 1.5;
-            });
-
-            pacKeyHandler = (e) => {
-                if (e.key === 'ArrowUp' || e.key === 'w') { pacman.nextDirX = 0; pacman.nextDirY = -1; }
-                if (e.key === 'ArrowDown' || e.key === 's') { pacman.nextDirX = 0; pacman.nextDirY = 1; }
-                if (e.key === 'ArrowLeft' || e.key === 'a') { pacman.nextDirX = -1; pacman.nextDirY = 0; }
-                if (e.key === 'ArrowRight' || e.key === 'd') { pacman.nextDirX = 1; pacman.nextDirY = 0; }
-            };
-            window.addEventListener('keydown', pacKeyHandler);
-
-            function canMove(gridX, gridY) {
-                if (gridX < 0 || gridX >= cols || gridY < 0 || gridY >= rows) return false;
-                return map[gridY][gridX] !== 1;
-            }
-
-            function update() {
-                let centerTargetX = pacman.x * tileSize + tileSize / 2;
-                let centerTargetY = pacman.y * tileSize + tileSize / 2;
-
-                if (Math.abs(pacman.px - centerTargetX) < pacman.speed && Math.abs(pacman.py - centerTargetY) < pacman.speed) {
-                    pacman.px = centerTargetX;
-                    pacman.py = centerTargetY;
-
-                    if (canMove(pacman.x + pacman.nextDirX, pacman.y + pacman.nextDirY)) {
-                        pacman.dirX = pacman.nextDirX;
-                        pacman.dirY = pacman.nextDirY;
-                        if (pacman.dirX === 1) pacman.rotation = 0;
-                        if (pacman.dirX === -1) pacman.rotation = Math.PI;
-                        if (pacman.dirY === 1) pacman.rotation = Math.PI / 2;
-                        if (pacman.dirY === -1) pacman.rotation = -Math.PI / 2;
-                    }
-
-                    if (canMove(pacman.x + pacman.dirX, pacman.y + pacman.dirY)) {
-                        pacman.x += pacman.dirX;
-                        pacman.y += pacman.dirY;
-                    } else {
-                        pacman.dirX = 0;
-                        pacman.dirY = 0;
-                    }
-
-                    if (map[pacman.y][pacman.x] === 0) {
-                        map[pacman.y][pacman.x] = 2;
-                        score += 10;
-                    }
-                }
-
-                pacman.px += pacman.dirX * pacman.speed;
-                pacman.py += pacman.dirY * pacman.speed;
-
-                mouthAngle += mouthSpeed;
-                if (mouthAngle > 0.4 || mouthAngle < 0.05) mouthSpeed = -mouthSpeed;
-
-                ghosts.forEach(g => {
-                    let gCenterX = g.x * tileSize + tileSize / 2;
-                    let gCenterY = g.y * tileSize + tileSize / 2;
-
-                    if (Math.abs(g.px - gCenterX) < g.speed && Math.abs(g.py - gCenterY) < g.speed) {
-                        g.px = gCenterX;
-                        g.py = gCenterY;
-
-                        let validDirs = [];
-                        let dirs = [{x: 0, y: -1}, {x: 0, y: 1}, {x: -1, y: 0}, {x: 1, y: 0}];
-                        dirs.forEach(d => {
-                            if (canMove(g.x + d.x, g.y + d.y) && !(d.x === -g.dirX && d.y === -g.dirY)) {
-                                validDirs.push(d);
-                            }
-                        });
-
-                        if (validDirs.length === 0) validDirs.push({x: -g.dirX, y: -g.dirY});
-                        let chosen = validDirs[Math.floor(Math.random() * validDirs.length)];
-                        g.dirX = chosen.x;
-                        g.dirY = chosen.y;
-                        g.x += g.dirX;
-                        g.y += g.dirY;
-                    }
-
-                    g.px += g.dirX * g.speed;
-                    g.py += g.dirY * g.speed;
-
-                    let dist = Math.hypot(pacman.px - g.px, pacman.py - g.py);
-                    if (dist < tileSize * 0.8) {
-                        alert('¡GAME OVER PAC-MAN! Puntuación final: ' + score);
-                        openGame('pacman');
-                    }
-                });
-
-                ctx.fillStyle = '#000000';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                ctx.save();
-                ctx.translate(offsetX, offsetY);
-
-                for (let r = 0; r < rows; r++) {
-                    for (let c = 0; c < cols; c++) {
-                        if (map[r][c] === 1) {
-                            ctx.fillStyle = '#1919A6';
-                            ctx.fillRect(c * tileSize, r * tileSize, tileSize - 1, tileSize - 1);
-                        } else if (map[r][c] === 0) {
-                            ctx.fillStyle = '#FFB8AE';
-                            ctx.beginPath();
-                            ctx.arc(c * tileSize + tileSize / 2, r * tileSize + tileSize / 2, 3, 0, Math.PI * 2);
-                            ctx.fill();
-                        }
-                    }
-                }
-
-                ctx.save();
-                ctx.translate(pacman.px, pacman.py);
-                ctx.rotate(pacman.rotation);
-                ctx.fillStyle = '#FFFF00';
-                ctx.beginPath();
-                ctx.arc(0, 0, tileSize / 2 - 2, mouthAngle, Math.PI * 2 - mouthAngle);
-                ctx.lineTo(0, 0);
-                ctx.fill();
-                ctx.restore();
-
-                ghosts.forEach(g => {
-                    ctx.fillStyle = g.color;
-                    ctx.beginPath();
-                    ctx.arc(g.px, g.py - 2, tileSize / 2 - 2, Math.PI, 0, false);
-                    ctx.lineTo(g.px + tileSize / 2 - 2, g.py + tileSize / 2 - 2);
-                    ctx.lineTo(g.px - tileSize / 2 + 2, g.py + tileSize / 2 - 2);
-                    ctx.fill();
-
-                    ctx.fillStyle = '#FFFFFF';
-                    ctx.beginPath();
-                    ctx.arc(g.px - 4, g.py - 4, 3, 0, Math.PI * 2);
-                    ctx.arc(g.px + 4, g.py - 4, 3, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.fillStyle = '#0000FF';
-                    ctx.beginPath();
-                    ctx.arc(g.px - 3, g.py - 4, 1.5, 0, Math.PI * 2);
-                    ctx.arc(g.px + 5, g.py - 4, 1.5, 0, Math.PI * 2);
-                    ctx.fill();
-                });
-
-                ctx.restore();
-
-                ctx.fillStyle = '#FFFFFF';
-                ctx.font = 'bold 16px Orbitron';
-                ctx.fillText('SCORE: ' + score, 20, 30);
-
-                currentGameAnimationFrame = requestAnimationFrame(update);
-            }
-
-            update();
         }
     </script>
 </body>
