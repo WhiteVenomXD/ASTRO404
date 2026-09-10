@@ -207,7 +207,6 @@
            ========================================= */
         #app-content {
             display: none;
-            /* Oculto hasta login */
             padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
@@ -499,19 +498,11 @@
             display: block;
         }
 
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Contenedor específico para EmulatorJS */
         #emulator-container {
             width: 100%;
             height: 100%;
         }
 
-        /* Instrucciones de controles en canvas */
         .controls-info {
             color: #fff;
             font-size: 0.8rem;
@@ -523,9 +514,7 @@
 
 <body>
 
-    <!-- =========================================
-         PANTALLA DE LOGIN
-         ========================================= -->
+    <!-- PANTALLA DE LOGIN -->
     <div id="login-screen">
         <div class="glass login-box">
             <h1>ASTRO404</h1>
@@ -539,9 +528,7 @@
         </div>
     </div>
 
-    <!-- =========================================
-         PANEL DE AJUSTES (MODAL LATERAL)
-         ========================================= -->
+    <!-- PANEL DE AJUSTES -->
     <div id="settings-modal">
         <button class="close-settings" onclick="toggleSettings()">×</button>
         <div class="settings-content">
@@ -555,30 +542,22 @@
             <div class="setting-item">
                 <label>Animaciones (Bajo Rendimiento)</label>
                 <input type="checkbox" id="anim-toggle" class="toggle-switch">
-                <small style="opacity:0.7;font-size:0.7rem;display:block;margin-top:5px;">Actívalo si tu PC va
-                    lento.</small>
+                <small style="opacity:0.7;font-size:0.7rem;display:block;margin-top:5px;">Actívalo si tu PC va lento.</small>
             </div>
 
             <div class="setting-item">
                 <label>Fondo de Pantalla Personalizado</label>
                 <input type="file" id="bg-upload" accept="image/png, image/jpeg, image/gif">
-                <small style="opacity:0.7;font-size:0.7rem;display:block;margin-top:5px;">Sube una imagen o GIF (se
-                    guardará en tu navegador).</small>
-                <button class="btn-neon" style="font-size: 0.7rem; padding: 5px 10px; margin-top: 10px;"
-                    onclick="resetBg()">Resetear Fondo</button>
+                <button class="btn-neon" style="font-size: 0.7rem; padding: 5px 10px; margin-top: 10px;" onclick="resetBg()">Resetear Fondo</button>
             </div>
         </div>
     </div>
 
-    <!-- =========================================
-         APLICACIÓN PRINCIPAL
-         ========================================= -->
+    <!-- APLICACIÓN PRINCIPAL -->
     <div id="app-content">
         <header class="glass">
             <div class="logo-container">
-                <!-- Ruta actualizada al logo solicitado -->
-                <img src="./imagenes/ASTRO404-logo.png" alt="Astro404 Logo"
-                    onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+PGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iMjUiIGZpbGw9IiMwMEYwRkYiLz48dGV4dCB4PSIxMCIgeT0iMzAiIGZpbGw9IiMwMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC13ZWlnaHQ9ImJvbGQiPjQwNDwvdGV4dD48L3N2Zz4='">
+                <img src="./logo.jpg" alt="Astro404 Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+PGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iMjUiIGZpbGw9IiMwMEYwRkYiLz48dGV4dCB4PSIxMCIgeT0iMzAiIGZpbGw9IiMwMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC13ZWlnaHQ9ImJvbGQiPjQwNDwvdGV4dD48L3N2Zz4='">
                 <h1>ASTRO404</h1>
             </div>
             <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
@@ -586,10 +565,8 @@
 
         <main>
             <!-- SECCIÓN 4RCAD3 (Nativos) -->
-            <h2 class="section-title">👾 4RCAD3 <span style="font-size:1rem;color:var(--neon-cyan)">[HTML5/JS]</span>
-            </h2>
+            <h2 class="section-title">👾 4RCAD3 <span style="font-size:1rem;color:var(--neon-cyan)">[HTML5/JS]</span></h2>
             <div class="grid-container">
-
                 <div class="glass card" onclick="openGame('snake')">
                     <div class="card-icon">🐍</div>
                     <h3>Neon Snake</h3>
@@ -605,79 +582,32 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN R3TR0 (EmulatorJS) -->
-            <h2 class="section-title"
-                style="border-color: var(--neon-pink); text-shadow: 0 0 10px rgba(255,0,127,0.5);">🕹️ R3TR0 <span
-                    style="font-size:1rem;color:var(--neon-pink)">[Emuladores]</span></h2>
+            <!-- SECCIÓN R3TR0 (Emuladores) -->
+            <h2 class="section-title" style="border-color: var(--neon-pink); text-shadow: 0 0 10px rgba(255,0,127,0.5);">🕹️ R3TR0 <span style="font-size:1rem;color:var(--neon-pink)">[Emuladores]</span></h2>
             <div class="grid-container">
-
-                <!-- PLANTILLA: PARA AÑADIR NUEVOS JUEGOS, COPIA ESTE BLOQUE Y CAMBIA LOS DATOS -->
-
-
-                <div class="glass card card-r3tr0"
-                    onclick="loadEmulator('gba', './roms/juego1.bin', 'Super Juego GBA')">
-                    <div class="card-icon">🎮</div>
-                    <h3>Plantilla GBA</h3>
-                    <p>Gameboy Advance (juego1.bin)</p>
-                    <button class="btn-play">EMULAR</button>
-                </div>
-
-                <div class="glass card card-r3tr0"
-                    onclick="loadEmulator('n64', './roms/juego2.bin', 'Super Juego N64')">
-                    <div class="card-icon">📺</div>
-                    <h3>Plantilla N64</h3>
-                    <p>Nintendo 64 (juego2.bin)</p>
-                    <button class="btn-play">EMULAR</button>
-                </div>
-
-                <div class="glass card card-r3tr0" 
-                    onclick="loadEmulator('dos', './roms/doom_data.bin', 'DOOM (1993)')">
-                    <div class="card-icon">💀</div>
-                    <h3>DOOM (1993)</h3>
-                    <p>MS-DOS (doom_data.bin)</p>
-                    <button class="btn-play">EMULAR</button>
-                </div>
-
-                <div class="glass card card-r3tr0" 
-                    onclick="loadEmulator('prboom', './roms/doom_data.bin', 'DOOM (1993)')">
-                    <div class="card-icon">💀</div>
-                    <h3>DOOM (1993)</h3>
-                    <p>PrBoom Core (doom_data.bin)</p>
-                    <button class="btn-play">EMULAR</button>
-                </div>
-
                 <div class="glass card card-r3tr0" onclick="loadEmulator('prboom', './roms/doom_data.bin', 'DOOM (1993)')">
                     <div class="card-icon">💀</div>
                     <h3>DOOM (1993)</h3>
                     <p>PrBoom Core (doom_data.bin)</p>
                     <button class="btn-play">EMULAR</button>
                 </div>
-
             </div>
         </main>
     </div>
 
-    <!-- =========================================
-         MODAL REPRODUCTOR DE JUEGOS
-         ========================================= -->
+    <!-- MODAL REPRODUCTOR DE JUEGOS Y EMULADOR -->
     <div id="game-modal">
         <div class="game-header">
             <h2 id="game-title">Título del Juego</h2>
             <button class="close-game" onclick="closeGame()">✖</button>
         </div>
-        <div class="game-container" id="game-viewport">
-            <!-- Aquí se inyecta el canvas, iframe o emulador dinámicamente -->
-        </div>
+        <div class="game-container" id="game-viewport"></div>
         <div class="controls-info" id="game-controls"></div>
     </div>
 
-    <!-- =========================================
-         JAVASCRIPT
-         ========================================= -->
+    <!-- JAVASCRIPT -->
     <script>
-        /* -------------------------------------------
-           SISTEMA DE LOGIN
-           ------------------------------------------- */
+        /* SISTEMA DE LOGIN */
         const passInput = document.getElementById('password-input');
         passInput.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') checkPassword();
@@ -691,7 +621,6 @@
                 setTimeout(() => {
                     document.getElementById('login-screen').style.display = 'none';
                     document.getElementById('app-content').style.display = 'block';
-                    document.getElementById('app-content').style.animation = 'fadeIn 1s forwards';
                 }, 800);
             } else {
                 errorMsg.innerText = "ACCESO DENEGADO";
@@ -700,9 +629,7 @@
             }
         }
 
-        /* -------------------------------------------
-           SISTEMA DE AJUSTES Y LOCALSTORAGE
-           ------------------------------------------- */
+        /* SISTEMA DE AJUSTES */
         function toggleSettings() {
             document.getElementById('settings-modal').classList.toggle('open');
         }
@@ -711,7 +638,6 @@
         const animToggle = document.getElementById('anim-toggle');
         const bgUpload = document.getElementById('bg-upload');
 
-        // Cargar ajustes guardados
         window.onload = () => {
             if (localStorage.getItem('astro_theme') === 'light') {
                 document.documentElement.setAttribute('data-theme', 'light');
@@ -727,7 +653,6 @@
             }
         };
 
-        // Eventos de Ajustes
         themeToggle.addEventListener('change', (e) => {
             if (e.target.checked) {
                 document.documentElement.setAttribute('data-theme', 'light');
@@ -758,7 +683,7 @@
                     try {
                         localStorage.setItem('astro_bg', base64Str);
                     } catch (err) {
-                        alert("La imagen es demasiado pesada para guardarla en la caché local, pero se aplicará temporalmente.");
+                        alert("La imagen es demasiado pesada para guardarla localmente.");
                     }
                 };
                 reader.readAsDataURL(file);
@@ -771,18 +696,40 @@
             bgUpload.value = "";
         }
 
-        /* -------------------------------------------
-           GESTOR DE JUEGOS Y MODALES
-           ------------------------------------------- */
-        let currentGameLoop = null; // Para limpiar animaciones requestAnimationFrame
-
-        function openGame(type, url = '') {
+        /* GESTOR DE EMULADOR EMULATORJS */
+        function loadEmulator(core, gameUrl, gameTitle) {
             const modal = document.getElementById('game-modal');
             const viewport = document.getElementById('game-viewport');
             const title = document.getElementById('game-title');
             const controls = document.getElementById('game-controls');
 
-            viewport.innerHTML = ''; // Limpiar
+            viewport.innerHTML = '<div id="emulator-container"></div>';
+            controls.innerText = "Cargando emulador...";
+            title.innerText = gameTitle;
+            modal.style.display = 'flex';
+
+            window.EJS_player = '#emulator-container';
+            window.EJS_core = core;
+            window.EJS_gameUrl = gameUrl;
+            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+            window.EJS_startOnLoaded = true;
+
+            let loader = document.createElement('script');
+            loader.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            document.getElementById('emulator-container').appendChild(loader);
+        }
+
+        /* JUEGOS HTML5 NATIVOS */
+        let currentGameLoop = null;
+        let snakeKeyHandler, dinoKeyHandler;
+
+        function openGame(type) {
+            const modal = document.getElementById('game-modal');
+            const viewport = document.getElementById('game-viewport');
+            const title = document.getElementById('game-title');
+            const controls = document.getElementById('game-controls');
+
+            viewport.innerHTML = '';
             controls.innerText = '';
             modal.style.display = 'flex';
 
@@ -806,19 +753,10 @@
                 cancelAnimationFrame(currentGameLoop);
                 currentGameLoop = null;
             }
-            // Limpiar variables globales de juegos
             window.removeEventListener('keydown', snakeKeyHandler);
             window.removeEventListener('keydown', dinoKeyHandler);
         }
 
-        /* =========================================================================
-           LÓGICA DE JUEGOS HTML5 (NATIVOS)
-           ========================================================================= */
-
-        // Variables globales para eventos de teclado (para poder removerlos al cerrar)
-        let snakeKeyHandler, dinoKeyHandler;
-
-        /* --- SNAKE --- */
         function startSnake() {
             const canvas = document.getElementById('gameCanvas');
             const ctx = canvas.getContext('2d');
@@ -827,11 +765,6 @@
             let dx = 1, dy = 0;
             let score = 0;
             const gridSize = 20;
-            const tileCountX = canvas.width / gridSize;
-            const tileCountY = canvas.height / gridSize;
-
-            let lastRenderTime = 0;
-            const snakeSpeed = 10; // movimientos por segundo
 
             snakeKeyHandler = (e) => {
                 if (e.key === 'ArrowUp' && dy === 0) { dx = 0; dy = -1; }
@@ -841,69 +774,26 @@
             };
             window.addEventListener('keydown', snakeKeyHandler);
 
-            function loop(currentTime) {
+            function loop() {
                 currentGameLoop = requestAnimationFrame(loop);
-                const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000;
-                if (secondsSinceLastRender < 1 / snakeSpeed) return;
-                lastRenderTime = currentTime;
-
-                // Mover
-                const head = { x: snake[0].x + dx, y: snake[0].y + dy };
-                // Atravesar paredes
-                if (head.x < 0) head.x = tileCountX - 1;
-                if (head.x >= tileCountX) head.x = 0;
-                if (head.y < 0) head.y = tileCountY - 1;
-                if (head.y >= tileCountY) head.y = 0;
-
-                // Colisión propia
-                if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
-                    snake = [{ x: 10, y: 10 }]; dx = 1; dy = 0; score = 0; // Reset
-                }
-
-                snake.unshift(head);
-
-                // Comer
-                if (head.x === food.x && head.y === food.y) {
-                    score++;
-                    food = { x: Math.floor(Math.random() * tileCountX), y: Math.floor(Math.random() * tileCountY) };
-                } else {
-                    snake.pop();
-                }
-
-                // Dibujar
                 ctx.fillStyle = '#050510';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                // Comida (Neon Pink)
                 ctx.fillStyle = '#FF007F';
-                ctx.shadowBlur = 15; ctx.shadowColor = '#FF007F';
                 ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
 
-                // Serpiente (Neon Cyan)
                 ctx.fillStyle = '#00F0FF';
-                ctx.shadowBlur = 10; ctx.shadowColor = '#00F0FF';
                 snake.forEach(seg => {
                     ctx.fillRect(seg.x * gridSize, seg.y * gridSize, gridSize - 2, gridSize - 2);
                 });
-                ctx.shadowBlur = 0;
-
-                // Puntuación
-                ctx.fillStyle = 'white';
-                ctx.font = '20px Orbitron';
-                ctx.fillText(`SCORE: ${score}`, 10, 30);
             }
-            requestAnimationFrame(loop);
+            loop();
         }
 
-        /* --- SPACE RUNNER (DINO) --- */
         function startDino() {
             const canvas = document.getElementById('gameCanvas');
             const ctx = canvas.getContext('2d');
-
             let dino = { x: 50, y: 300, w: 30, h: 30, dy: 0, gravity: 0.6, jump: -12, grounded: true };
-            let obstacles = [];
-            let score = 0;
-            let frame = 0;
 
             dinoKeyHandler = (e) => {
                 if ((e.code === 'Space' || e.code === 'ArrowUp') && dino.grounded) {
@@ -918,99 +808,18 @@
                 ctx.fillStyle = '#050510';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                // Física Dino
                 dino.dy += dino.gravity;
                 dino.y += dino.dy;
-                if (dino.y + dino.h >= 350) {
-                    dino.y = 350 - dino.h;
-                    dino.dy = 0;
+                if (dino.y >= 300) {
+                    dino.y = 300;
                     dino.grounded = true;
                 }
 
-                // Suelo
-                ctx.strokeStyle = '#00F0FF'; ctx.lineWidth = 2;
-                ctx.beginPath(); ctx.moveTo(0, 350); ctx.lineTo(canvas.width, 350); ctx.stroke();
-
-                // Generar obstáculos
-                if (frame % 90 === 0) {
-                    obstacles.push({ x: canvas.width, y: 320, w: 20, h: 30, speed: 5 + score / 500 });
-                }
-
-                // Actualizar y dibujar obstáculos
-                ctx.fillStyle = '#FF7000';
-                ctx.shadowBlur = 10; ctx.shadowColor = '#FF7000';
-                for (let i = 0; i < obstacles.length; i++) {
-                    let obs = obstacles[i];
-                    obs.x -= obs.speed;
-                    ctx.fillRect(obs.x, obs.y, obs.w, obs.h);
-
-                    // Colisión
-                    if (dino.x < obs.x + obs.w && dino.x + dino.w > obs.x && dino.y < obs.y + obs.h && dino.y + dino.h > obs.y) {
-                        score = 0; obstacles = []; // Reset
-                    }
-                }
-                obstacles = obstacles.filter(o => o.x + o.w > 0);
-
-                // Dibujar Dino
-                ctx.fillStyle = '#FEE715';
-                ctx.shadowBlur = 15; ctx.shadowColor = '#FEE715';
+                ctx.fillStyle = '#00F0FF';
                 ctx.fillRect(dino.x, dino.y, dino.w, dino.h);
-                ctx.shadowBlur = 0;
-
-                score++;
-                ctx.fillStyle = 'white';
-                ctx.font = '20px Orbitron';
-                ctx.fillText(`DIST: ${Math.floor(score / 10)}`, 10, 30);
-                frame++;
             }
             loop();
         }
-
-        /* =========================================================================
-           INTEGRACIÓN CON EMULATORJS
-           ========================================================================= */
-        function loadEmulator(core, romUrl, title) {
-            const modal = document.getElementById('game-modal');
-            const viewport = document.getElementById('game-viewport');
-            const titleEl = document.getElementById('game-title');
-            const controls = document.getElementById('game-controls');
-
-            titleEl.innerText = title;
-            controls.innerText = "Nota: Asegúrate de que las rutas locales a los ROMs sean correctas.";
-
-            // Estructura requerida por EmulatorJS
-            viewport.innerHTML = `
-                <div style="width:100%;height:100%;max-width:100%">
-                    <div id="game"></div>
-                </div>
-            `;
-
-            modal.style.display = 'flex';
-
-            // Configuración global inyectada en ventana para que loader.js la lea
-            window.EJS_player = '#game';
-            window.EJS_core = core;
-            window.EJS_gameUrl = romUrl; // EJ: './roms/juego1.bin'
-            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/'; // Directorio CDN
-            window.EJS_color = '#FF007F'; // Tema neon pink
-
-            // Inyectar el script del loader
-            if (!document.getElementById('ejs-loader')) {
-                const script = document.createElement('script');
-                script.id = 'ejs-loader';
-                script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-                document.body.appendChild(script);
-            } else {
-                const oldScript = document.getElementById('ejs-loader');
-                oldScript.remove();
-
-                const newScript = document.createElement('script');
-                newScript.id = 'ejs-loader';
-                newScript.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-                document.body.appendChild(newScript);
-            }
-        }
-
     </script>
 </body>
 
