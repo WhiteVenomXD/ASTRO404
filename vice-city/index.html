@@ -100,9 +100,13 @@
                 id="game-file-input"
                 style="display: none;"
                 accept=".tar.gz,.gz,application/x-gzip,application/gzip"
-                onchange="document.getElementById('selected-file-name').textContent = this.files[0] ? this.files[0].name : 'No file selected';"
+                onchange="
+                  if (this.files && this.files[0]) {
+                  document.getElementById('selected-file-name').textContent = this.files[0].name;
+                  this.dispatchEvent(new Event('change', { bubbles: true }));
+                  }
+                "
               />
-
               <button
                 id="reset-game-btn"
                 class="reset-btn hidden"
