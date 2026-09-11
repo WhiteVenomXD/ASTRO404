@@ -168,13 +168,17 @@
             justify-content: center;
         }
 
+        /* FRASES ALEATORIAS EN ENCABEZADO */
         .header-subtitle {
+            margin: 0 15px;
             margin: 0 10px;
             text-align: center;
+            flex: 1;
             max-width: 250px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            min-width: 0;
         }
 
         .fade-out {
@@ -254,7 +258,6 @@
            LAYOUT PRINCIPAL Y BUSCADOR
            ========================================= */
         #app-content {
-       #app-content {
             display: none;
             padding: 20px;
             max-width: 1200px;
@@ -269,8 +272,8 @@
             margin-bottom: 40px;
             border-bottom: 2px solid var(--neon-pink);
             gap: 15px;
-            flex-wrap: wrap;
             flex-wrap: nowrap;
+            flex-wrap: wrap;
         }
 
         .logo-container {
@@ -297,12 +300,10 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* BUSCADOR DE JUEGOS */
         /* BUSCADOR EXPANDIBLE A LA DERECHA */
+        /* BUSCADOR DE JUEGOS */
         .search-container {
             position: relative;
-            flex-grow: 1;
-            max-width: 320px;
             width: 38px;
             height: 38px;
             transition: width 0.4s ease;
@@ -312,13 +313,15 @@
         .search-container:focus-within,
         .search-container:hover {
             width: 220px;
+            flex-grow: 1;
+            max-width: 320px;
         }
 
         .search-input {
             width: 100%;
-            padding: 8px 16px 8px 38px;
             height: 100%;
             padding: 8px 12px 8px 36px;
+            padding: 8px 16px 8px 38px;
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid var(--neon-cyan);
             border-radius: 20px;
@@ -329,18 +332,18 @@
             cursor: pointer;
         }
 
-        .search-input:focus {
         .search-container:focus-within .search-input {
             cursor: text;
             background: rgba(0, 0, 0, 0.8);
+        .search-input:focus {
             box-shadow: var(--shadow-cyan);
             background: rgba(0, 0, 0, 0.7);
         }
 
         .search-icon {
             position: absolute;
-            left: 12px;
             left: 11px;
+            left: 12px;
             top: 50%;
             transform: translateY(-50%);
             font-size: 0.9rem;
@@ -647,6 +650,10 @@
                 <h1>ASTRO404</h1>
             </div>
 
+            <!-- FRASES ALEATORIAS EN EL CENTRO DE LA BARRA -->
+            <div id="header-quote" class="header-subtitle">Cargando la matriz...</div>
+
+            <!-- BUSCADOR COMPACTO A LA DERECHA QUE SE EXPANDE -->
             <!-- BUSCADOR SUPERIOR DE JUEGOS -->
             <div class="search-container">
                 <span class="search-icon">🔍</span>
@@ -939,6 +946,7 @@
         /* ZELDA: A LINK TO THE PAST roms/zelda.sfc */
         function openZelda() {
             closeGame();
+            // Lógica para emular Zelda
             const modal = document.getElementById('game-modal');
             const viewport = document.getElementById('game-viewport');
             const title = document.getElementById('game-title');
@@ -957,7 +965,7 @@
             window.EJS_startOnLoaded = true;
             window.EJS_defaultVolume = 1;
             window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-
+            
             window.EJS_gameUrl = 'roms/zelda.sfc'; 
 
             const script = document.createElement('script');
@@ -1014,7 +1022,7 @@
             window.EJS_color = '#00F0FF';
             window.EJS_startOnLoaded = true;
             window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-
+            
             window.EJS_gameUrl = 'roms/SuperMarioWorld.sfc'; 
 
             const script = document.createElement('script');
@@ -1156,5 +1164,7 @@
         }
     </script>
 </body>
+
+</html>
 
 </html>
