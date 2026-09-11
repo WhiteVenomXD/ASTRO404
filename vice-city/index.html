@@ -91,17 +91,16 @@
                 >Download game.tar.gz</a
               >
 
-              <label class="file-picker" for="game-file-input">
+              <label class="file-picker" for="game-file-input" style="cursor: pointer;">
                 <span class="file-picker-label">Select game.tar.gz</span>
-                <span id="selected-file-name" class="file-picker-name"
-                  >No file selected</span
-                >
+                <span id="selected-file-name" class="file-picker-name">No file selected</span>
               </label>
               <input
                 type="file"
                 id="game-file-input"
-                class="hidden"
-                accept=".tar.gz,.gz,application/gzip"
+                style="display: none;"
+                accept=".tar.gz,.gz,application/x-gzip,application/gzip"
+                onchange="document.getElementById('selected-file-name').textContent = this.files[0] ? this.files[0].name : 'No file selected';"
               />
 
               <button
