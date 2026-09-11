@@ -1,3 +1,4 @@
+const BASE_PATH = self.location.pathname.replace(/\/sw\.js$/, '');
 const OPFS_MARKER = '_game_ready';
 
 const CONTENT_TYPES = new Map([
