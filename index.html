@@ -743,42 +743,34 @@
          ========================================= -->
     <script>
         /* -------------------------------------------
-           SISTEMA DE LOGIN SEGURO (SHA-256 HASH)
-           ------------------------------------------- */
-        const passInput = document.getElementById('password-input');
-        passInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') checkPassword();
-        });
+   SISTEMA DE LOGIN
+   ------------------------------------------- */
+const passInput = document.getElementById('password-input');
+passInput.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') checkPassword();
+});
 
-        // Hash SHA-256 de la contraseña "astroworld"
-        const TARGET_HASH = "f9daef8fb18037b5ee1ca5bcfe54d1d8efd51d4e0e37b51b74f0b2f02cb8f352";
+// Contraseña "astroworld" codificada para no ser visible directamente
+const TARGET_PASS = "YXN0cm93b3JsZA=="; 
 
-        async function hashString(str) {
-            const encoder = new TextEncoder();
-            const data = encoder.encode(str);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        }
+function checkPassword() {
+    const val = passInput.value;
+    const errorMsg = document.getElementById('login-error');
 
-        async function checkPassword() {
-            const val = passInput.value;
-            const errorMsg = document.getElementById('login-error');
-            const hashedInput = await hashString(val);
-
-            if (hashedInput === TARGET_HASH) {
-                document.getElementById('login-screen').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('login-screen').style.display = 'none';
-                    document.getElementById('app-content').style.display = 'block';
-                    startPhrasesRotation();
-                }, 800);
-            } else {
-                errorMsg.innerText = "ACCESO DENEGADO";
-                setTimeout(() => errorMsg.innerText = "", 2000);
-                passInput.value = "";
-            }
-        }
+    // Convertimos la entrada a Base64 para comparar
+    if (btoa(val) === TARGET_PASS) {
+        document.getElementById('login-screen').style.opacity = '0';
+        setTimeout(() => {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('app-content').style.display = 'block';
+            startPhrasesRotation();
+        }, 800);
+    } else {
+        errorMsg.innerText = "ACCESO DENEGADO";
+        setTimeout(() => errorMsg.innerText = "", 2000);
+        passInput.value = "";
+    }
+}
 
         /* -------------------------------------------
            SISTEMA DE FRASES ROTATIVAS MULTICOLOR
