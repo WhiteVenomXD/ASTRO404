@@ -13,7 +13,6 @@
            VARIABLES Y TEMAS
            ========================================= */
         :root {
-            /* Tema Oscuro (Por defecto) */
             --bg-color: #050510;
             --text-color: #ffffff;
             --glass-bg: rgba(20, 20, 35, 0.4);
@@ -28,7 +27,6 @@
         }
 
         [data-theme="light"] {
-            /* Tema Claro */
             --bg-color: #f0f4f8;
             --text-color: #1a1a2e;
             --glass-bg: rgba(255, 255, 255, 0.6);
@@ -62,13 +60,10 @@
             overflow-x: hidden;
         }
 
-        h1,
-        h2,
-        h3 {
+        h1, h2, h3 {
             font-family: 'Orbitron', sans-serif;
         }
 
-        /* Desactivar animaciones si el usuario lo prefiere */
         body.low-animations * {
             transition: none !important;
             animation: none !important;
@@ -84,9 +79,6 @@
             background: #ffffff;
         }
 
-        /* =========================================
-           EFECTOS GLASSMORPHISM
-           ========================================= */
         .glass {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
@@ -97,7 +89,7 @@
         }
 
         /* =========================================
-           PANTALLA DE ACCESO (LOGIN)
+           LOGIN & LOGO ANIMADO
            ========================================= */
         #login-screen {
             position: fixed;
@@ -105,7 +97,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(5, 5, 16, 0.9);
+            background: rgba(5, 5, 16, 0.95);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -117,8 +109,36 @@
             padding: 40px;
             text-align: center;
             width: 90%;
-            max-width: 400px;
+            max-width: 420px;
             animation: pulse-glow 3s infinite alternate;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .login-logo {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid var(--neon-cyan);
+            animation: logo-glow 2.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes logo-glow {
+            0% {
+                box-shadow: 0 0 15px var(--neon-cyan), inset 0 0 10px var(--neon-cyan);
+                border-color: var(--neon-cyan);
+            }
+            50% {
+                box-shadow: 0 0 35px var(--neon-pink), inset 0 0 15px var(--neon-pink);
+                border-color: var(--neon-pink);
+            }
+            100% {
+                box-shadow: 0 0 25px var(--neon-yellow), inset 0 0 10px var(--neon-yellow);
+                border-color: var(--neon-yellow);
+            }
         }
 
         .login-box h1 {
@@ -129,10 +149,36 @@
             text-shadow: var(--shadow-cyan);
         }
 
-        .login-box p {
-            font-size: 0.9rem;
-            margin-bottom: 25px;
+        .login-subtitle, .header-subtitle {
+            font-size: 0.85rem;
             color: var(--neon-pink);
+            transition: opacity 0.6s ease-in-out;
+            opacity: 1;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(255, 0, 127, 0.4);
+            text-transform: uppercase;
+        }
+
+        .login-subtitle {
+            margin-bottom: 25px;
+            min-height: 2.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-subtitle {
+            margin: 0 10px;
+            text-align: center;
+            max-width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .fade-out {
+            opacity: 0 !important;
         }
 
         .input-group {
@@ -140,6 +186,7 @@
             flex-direction: column;
             gap: 10px;
             text-align: left;
+            width: 100%;
         }
 
         .input-group label {
@@ -175,6 +222,7 @@
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            width: 100%;
         }
 
         .btn-neon:hover {
@@ -188,6 +236,7 @@
             font-size: 0.8rem;
             margin-top: 10px;
             height: 15px;
+            text-align: center;
         }
 
         @keyframes pulse-glow {
@@ -195,7 +244,6 @@
                 box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
                 border-color: rgba(0, 240, 255, 0.2);
             }
-
             100% {
                 box-shadow: 0 0 30px rgba(255, 0, 127, 0.2);
                 border-color: rgba(255, 0, 127, 0.4);
@@ -203,61 +251,38 @@
         }
 
         /* =========================================
-           ESTRUCTURA PRINCIPAL Y CABECERA FLOTANTE
+           LAYOUT PRINCIPAL Y BUSCADOR
            ========================================= */
         #app-content {
+       #app-content {
             display: none;
-            /* Oculto hasta login */
-            padding: 100px 20px 20px 20px;
+            padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        header.sticky-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 100;
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 30px;
+            padding: 15px 25px;
+            margin-bottom: 40px;
             border-bottom: 2px solid var(--neon-pink);
-            border-radius: 0 0 16px 16px;
-            background: rgba(5, 5, 16, 0.6);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            gap: 15px;
+            flex-wrap: wrap;
+            flex-wrap: nowrap;
         }
 
-        /* SECCIÓN IZQUIERDA: FRASES MULTICOLOR */
-        .phrases-container {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            max-width: 250px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .phrase-cyan { color: var(--neon-cyan); text-shadow: var(--shadow-cyan); }
-        .phrase-pink { color: var(--neon-pink); text-shadow: var(--shadow-pink); }
-        .phrase-orange { color: var(--neon-orange); text-shadow: 0 0 10px rgba(255,112,0,0.5); }
-        .phrase-yellow { color: var(--neon-yellow); text-shadow: 0 0 10px rgba(254,231,21,0.5); }
-
-        /* SECCIÓN CENTRO: LOGO Y TÍTULO */
         .logo-container {
             display: flex;
             align-items: center;
             gap: 15px;
+            flex-shrink: 0;
         }
 
         .logo-container img {
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             border: 2px solid var(--neon-cyan);
             box-shadow: var(--shadow-cyan);
@@ -265,70 +290,73 @@
         }
 
         .logo-container h1 {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink), var(--neon-orange), var(--neon-yellow));
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* SECCIÓN DERECHA: BUSCADOR EXPANDIBLE Y CONFIGURACIÓN */
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        /* BUSCADOR DE JUEGOS */
+        /* BUSCADOR EXPANDIBLE A LA DERECHA */
+        .search-container {
+            position: relative;
+            flex-grow: 1;
+            max-width: 320px;
+            width: 38px;
+            height: 38px;
+            transition: width 0.4s ease;
+            flex-shrink: 0;
         }
 
-        .search-box {
-            position: relative;
-            display: flex;
-            align-items: center;
+        .search-container:focus-within,
+        .search-container:hover {
+            width: 220px;
         }
 
         .search-input {
-            width: 0;
-            opacity: 0;
-            padding: 8px 0;
-            background: rgba(0, 0, 0, 0.6);
+            width: 100%;
+            padding: 8px 16px 8px 38px;
+            height: 100%;
+            padding: 8px 12px 8px 36px;
+            background: rgba(0, 0, 0, 0.4);
             border: 1px solid var(--neon-cyan);
             border-radius: 20px;
             color: #fff;
-            outline: none;
-            transition: all 0.4s ease;
             font-size: 0.85rem;
-            pointer-events: none;
-        }
-
-        .search-box.active .search-input {
-            width: 180px;
-            opacity: 1;
-            padding: 8px 35px 8px 15px;
-            pointer-events: auto;
-            box-shadow: var(--shadow-cyan);
-        }
-
-        .search-btn {
-            background: transparent;
-            border: none;
-            color: var(--neon-cyan);
-            font-size: 1.2rem;
+            outline: none;
+            transition: all 0.3s ease;
             cursor: pointer;
-            transition: transform 0.3s ease;
-            padding: 5px;
         }
 
-        .search-box.active .search-btn {
+        .search-input:focus {
+        .search-container:focus-within .search-input {
+            cursor: text;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: var(--shadow-cyan);
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .search-icon {
             position: absolute;
-            right: 8px;
+            left: 12px;
+            left: 11px;
+            top: 50%;
+            transform: translateY(-50%);
             font-size: 0.9rem;
+            color: var(--neon-cyan);
+            pointer-events: none;
+            z-index: 2;
         }
 
         .settings-btn {
             background: transparent;
             border: none;
             color: var(--text-color);
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             cursor: pointer;
             transition: transform 0.3s ease;
+            flex-shrink: 0;
         }
 
         .settings-btn:hover {
@@ -337,7 +365,7 @@
         }
 
         /* =========================================
-           PANEL DE AJUSTES (MODAL)
+           PANEL DE AJUSTES
            ========================================= */
         #settings-modal {
             position: fixed;
@@ -417,13 +445,8 @@
             background: var(--neon-pink);
         }
 
-        input[type="file"] {
-            width: 100%;
-            font-size: 0.8rem;
-        }
-
         /* =========================================
-           TARJETAS DE CONTENIDO (JUEGOS Y EMULADORES)
+           TARJETAS DE JUEGOS
            ========================================= */
         .section-title {
             font-size: 1.5rem;
@@ -447,26 +470,13 @@
             align-items: center;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 10%, transparent 40%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-
-        .card:hover::before {
-            opacity: 1;
+        .card.hidden {
+            display: none !important;
         }
 
         .card:hover {
@@ -515,7 +525,7 @@
         }
 
         /* =========================================
-           MODAL DE JUEGO / EMULADOR
+           MODAL REPRODUCTOR
            ========================================= */
         #game-modal {
             position: fixed;
@@ -573,39 +583,28 @@
         }
 
         canvas {
-            background: #111;
+            background: #050510;
             display: block;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        #emulator-container {
-            width: 100%;
-            height: 100%;
         }
 
         .controls-info {
             color: #fff;
             font-size: 0.8rem;
             margin-top: 10px;
-            opacity: 0.7;
+            opacity: 0.8;
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- =========================================
-         PANTALLA DE LOGIN
-         ========================================= -->
+    <!-- LOGIN CON LOGO GRANDE Y FRASES ALEATORIAS -->
     <div id="login-screen">
         <div class="glass login-box">
+            <img src="imagenes/ASTRO404-logo.png" alt="Astro404 Logo" class="login-logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMzAiIGhlaWdodD0iMTMwIj48Y2lyY2xlIGN4PSI2NSIgY3k9IjY1IiByPSI2NSIgZmlsbD0iIzAwRjBGRiIvPjx0ZXh0IHg9IjIwIiB5PSI3NSIgZmlsbD0iIzAwMCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXdlaWdodD0iYm9sZCIgZm9udC1zaXplPSIzMCI+NDA0PC90ZXh0Pjwvc3ZnPg=='">
             <h1>ASTRO404</h1>
-            <p>PORTAL DIMENSIONAL RESTRINGIDO</p>
+            <div id="random-quote" class="login-subtitle">Cargando la matriz...</div>
             <div class="input-group">
                 <label for="password-input">CONTRASEÑA:</label>
                 <input type="password" id="password-input" placeholder="Introduce la clave...">
@@ -615,9 +614,7 @@
         </div>
     </div>
 
-    <!-- =========================================
-         PANEL DE AJUSTES (MODAL LATERAL)
-         ========================================= -->
+    <!-- PANEL DE AJUSTES -->
     <div id="settings-modal">
         <button class="close-settings" onclick="toggleSettings()">×</button>
         <div class="settings-content">
@@ -631,104 +628,105 @@
             <div class="setting-item">
                 <label>Animaciones (Bajo Rendimiento)</label>
                 <input type="checkbox" id="anim-toggle" class="toggle-switch">
-                <small style="opacity:0.7;font-size:0.7rem;display:block;margin-top:5px;">Actívalo si tu PC va lento.</small>
+                <small style="opacity:0.7;font-size:0.7rem;display:block;margin-top:5px;">Actívalo si tu equipo va lento.</small>
             </div>
 
             <div class="setting-item">
                 <label>Fondo de Pantalla Personalizado</label>
                 <input type="file" id="bg-upload" accept="image/png, image/jpeg, image/gif">
-                <small style="opacity:0.7;font-size:0.7rem;display:block;margin-top:5px;">Sube una imagen o GIF (se guardará en tu navegador).</small>
                 <button class="btn-neon" style="font-size: 0.7rem; padding: 5px 10px; margin-top: 10px;" onclick="resetBg()">Resetear Fondo</button>
             </div>
         </div>
     </div>
 
-    <!-- =========================================
-         CABECERA SUSPENDIDA Y PRINCIPAL
-         ========================================= -->
-    <header class="sticky-header">
-        <!-- IZQUIERDA: FRASES CON COLORES DINÁMICOS -->
-        <div class="phrases-container" id="phrases-box">
-            <!-- Inyectado mediante JS -->
-        </div>
-
-        <!-- CENTRO: LOGO Y TÍTULO -->
-        <div class="logo-container">
-            <img src="./imagenes/ASTRO404-logo.png" alt="Astro404 Logo"
-                onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+PGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iMjUiIGZpbGw9IiMwMEYwRkYiLz48dGV4dCB4PSIxMCIgeT0iMzAiIGZpbGw9IiMwMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC13ZWlnaHQ9ImJvbGQiPjQwNDwvdGV4dD48L3N2Zz4='">
-            <h1>ASTRO404</h1>
-        </div>
-
-        <!-- DERECHA: BUSCADOR Y CONFIGURACIÓN -->
-        <div class="header-actions">
-            <div class="search-box" id="search-box">
-                <input type="text" class="search-input" id="search-input" placeholder="Buscar juego..." onkeyup="filterGames()">
-                <button class="search-btn" onclick="toggleSearch()">🔍</button>
-            </div>
-            <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
-        </div>
-    </header>
-
+    <!-- APLICACIÓN PRINCIPAL -->
     <div id="app-content">
+        <header class="glass">
+            <div class="logo-container">
+                <img src="imagenes/ASTRO404-logo.png" alt="Astro404 Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+PGNpcmNsZSBjeD0iMjUiIGN5PSIyNSIgcj0iMjUiIGZpbGw9IiMwMEYwRkYiLz48dGV4dCB4PSIxMCIgeT0iMzAiIGZpbGw9IiMwMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC13ZWlnaHQ9ImJvbGQiPjQwNDwvdGV4dD48L3N2Zz4='">
+                <h1>ASTRO404</h1>
+            </div>
+
+            <!-- BUSCADOR SUPERIOR DE JUEGOS -->
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="game-search" class="search-input" placeholder="Buscar juego..." onkeyup="filterGames()">
+            </div>
+
+            <!-- FRASES ALEATORIAS EN EL ENCABEZADO -->
+            <div id="header-quote" class="header-subtitle">Cargando la matriz...</div>
+
+            <button class="settings-btn" onclick="toggleSettings()">⚙️</button>
+        </header>
+
         <main>
-            <!-- SECCIÓN 4RCAD3 (Nativos) -->
+            <!-- JUEGOS NATIVOS HTML5 & WEB -->
             <h2 class="section-title">👾 4RCAD3 <span style="font-size:1rem;color:var(--neon-cyan)">[HTML5/JS]</span></h2>
             <div class="grid-container">
-
                 <div class="glass card" onclick="openGame('snake')">
                     <div class="card-icon">🐍</div>
-                    <h3>Neon Snake</h3>
-                    <p>La clásica serpiente adaptada al ciberespacio. Usa las flechas para moverte.</p>
+                    <h3>Snake Nokia 3310</h3>
+                    <p>El clásico juego original de la serpiente verde LCD de los teléfonos Nokia.</p>
                     <button class="btn-play">JUGAR</button>
                 </div>
 
                 <div class="glass card" onclick="openGame('dino')">
                     <div class="card-icon">🦖</div>
-                    <h3>Space Runner</h3>
-                    <p>Esquiva los asteroides. Estilo Chrome Dinosaur. Pulsa ESPACIO o ARRIBA.</p>
+                    <h3>Chrome Dino 3D (elgooG)</h3>
+                    <p>La famosa versión en tres dimensiones con entorno dinámico de elgooG.</p>
+                    <button class="btn-play">JUGAR 3D</button>
+                </div>
+
+                <div class="glass card" onclick="openGame('pacman')">
+                    <div class="card-icon">🟡</div>
+                    <h3>Pac-Man Arcade Original</h3>
+                    <p>La versión funcional Arcade en HTML5 con mapa, sonido y jugabilidad exacta.</p>
                     <button class="btn-play">JUGAR</button>
                 </div>
             </div>
 
-            <!-- SECCIÓN R3TR0 (EmulatorJS) -->
-            <h2 class="section-title" style="border-color: var(--neon-pink); text-shadow: 0 0 10px rgba(255,0,127,0.5);">🕹️ R3TR0 <span style="font-size:1rem;color:var(--neon-pink)">[Emuladores]</span></h2>
+            <!-- JUEGOS RETRO Y EMULADORES -->
+            <h2 class="section-title" style="border-color: var(--neon-pink); text-shadow: 0 0 10px rgba(255,0,127,0.5);">🕹️ R3TR0 <span style="font-size:1rem;color:var(--neon-pink)">[Emuladores/Especiales]</span></h2>
             <div class="grid-container">
-
-                <div class="glass card card-r3tr0" onclick="loadEmulator('gba', './roms/juego1.bin', 'Super Juego GBA')">
-                    <div class="card-icon">🎮</div>
-                    <h3>Plantilla GBA</h3>
-                    <p>Gameboy Advance (juego1.bin)</p>
-                    <button class="btn-play">EMULAR</button>
-                </div>
-
-                <div class="glass card card-r3tr0" onclick="loadEmulator('n64', './roms/juego2.bin', 'Super Juego N64')">
-                    <div class="card-icon">📺</div>
-                    <h3>Plantilla N64</h3>
-                    <p>Nintendo 64 (juego2.bin)</p>
-                    <button class="btn-play">EMULAR</button>
-                </div>
-
-                <div class="glass card card-r3tr0" onclick="loadEmulator('dos', './roms/doom_data.bin', 'DOOM (1993)')">
+                <div class="glass card card-r3tr0" onclick="openDoom()">
                     <div class="card-icon">💀</div>
                     <h3>DOOM (1993)</h3>
-                    <p>MS-DOS (doom_data.bin)</p>
+                    <p>Carga directa desde la carpeta roms/doom1.wad mediante EmulatorJS.</p>
                     <button class="btn-play">EMULAR</button>
                 </div>
 
-                <div class="glass card card-r3tr0" onclick="loadEmulator('prboom', './roms/doom_data.bin', 'DOOM (1993)')">
-                    <div class="card-icon">💀</div>
-                    <h3>DOOM (1993)</h3>
-                    <p>PrBoom Core (doom_data.bin)</p>
+                <div class="glass card card-r3tr0" onclick="openMarioWorld()">
+                    <div class="card-icon">🦕</div>
+                    <h3>Super Mario All Stars</h3>
+                    <p>Una colección de los juegos del peludo osito madurito Mario de la NES + SNES.</p>
                     <button class="btn-play">EMULAR</button>
                 </div>
 
+                <div class="glass card card-r3tr0" onclick="openMario64()">
+                    <div class="card-icon">⭐</div>
+                    <h3>Super Mario 64</h3>
+                    <p>El revolucionario plataformas en 3D de Nintendo 64.</p>
+                    <button class="btn-play">EMULAR</button>
+                </div>
+
+                <div class="glass card card-r3tr0" onclick="openZelda()">
+                    <div class="card-icon">🗡️</div>
+                    <h3>Zelda: A Link to the Past</h3>
+                    <p>La mítica aventura en 2D para Super Nintendo. Explora Hyrule y el Mundo Oscuro.</p>
+                    <button class="btn-play">EMULAR</button>
+                </div>
+
+                <div class="glass card card-r3tr0" onclick="openMinecraft()">
+                    <div class="card-icon">🧊</div>
+                    <h3>Minecraft Web (Eagler)</h3>
+                    <p>Minecraft 1.8 en HTML5 con multijugador online funcional para jugar con amigos.</p>
+                    <button class="btn-play">JUGAR ONLINE</button>
+                </div>
             </div>
         </main>
     </div>
 
-    <!-- =========================================
-         MODAL REPRODUCTOR DE JUEGOS
-         ========================================= -->
+    <!-- MODAL DE JUEGOS -->
     <div id="game-modal">
         <div class="game-header">
             <h2 id="game-title">Título del Juego</h2>
@@ -738,96 +736,101 @@
         <div class="controls-info" id="game-controls"></div>
     </div>
 
-    <!-- =========================================
-         JAVASCRIPT
-         ========================================= -->
+    <!-- JAVASCRIPT COMPLETO -->
     <script>
-        /* -------------------------------------------
-   SISTEMA DE LOGIN
-   ------------------------------------------- */
-const passInput = document.getElementById('password-input');
-passInput.addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') checkPassword();
-});
-
-// Contraseña "astroworld" codificada para no ser visible directamente
-const TARGET_PASS = "YXN0cm93b3JsZA=="; 
-
-function checkPassword() {
-    const val = passInput.value;
-    const errorMsg = document.getElementById('login-error');
-
-    // Convertimos la entrada a Base64 para comparar
-    if (btoa(val) === TARGET_PASS) {
-        document.getElementById('login-screen').style.opacity = '0';
-        setTimeout(() => {
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('app-content').style.display = 'block';
-            startPhrasesRotation();
-        }, 800);
-    } else {
-        errorMsg.innerText = "ACCESO DENEGADO";
-        setTimeout(() => errorMsg.innerText = "", 2000);
-        passInput.value = "";
-    }
-}
-
-        /* -------------------------------------------
-           SISTEMA DE FRASES ROTATIVAS MULTICOLOR
-           ------------------------------------------- */
-        const phrases = [
-            '<span class="phrase-cyan">EXPLORA</span> <span class="phrase-pink">EL</span> <span class="phrase-yellow">COSMOS</span>',
-            '<span class="phrase-orange">BIENVENIDO</span> <span class="phrase-cyan">A</span> <span class="phrase-pink">ASTRO404</span>',
-            '<span class="phrase-pink">MODO</span> <span class="phrase-yellow">RETRO</span> <span class="phrase-cyan">ACTIVADO</span>',
-            '<span class="phrase-cyan">SISTEMA</span> <span class="phrase-orange">EN</span> <span class="phrase-pink">LINEA</span>'
-        ];
-        let currentPhraseIndex = 0;
-
-        function startPhrasesRotation() {
-            const box = document.getElementById('phrases-box');
-            box.innerHTML = phrases[0];
-            setInterval(() => {
-                currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
-                box.style.opacity = '0';
-                setTimeout(() => {
-                    box.innerHTML = phrases[currentPhraseIndex];
-                    box.style.opacity = '1';
-                }, 300);
-            }, 4000);
-        }
-
-        /* -------------------------------------------
-           BUSCADOR EXPANDIBLE
-           ------------------------------------------- */
-        function toggleSearch() {
-            const searchBox = document.getElementById('search-box');
-            const searchInput = document.getElementById('search-input');
-            searchBox.classList.toggle('active');
-            if (searchBox.classList.contains('active')) {
-                searchInput.focus();
-            } else {
-                searchInput.value = '';
-                filterGames();
-            }
-        }
-
+        /* =========================================
+           SISTEMA DE FILTRADO Y BUSCADOR DE JUEGOS
+           ========================================= */
         function filterGames() {
-            const query = document.getElementById('search-input').value.toLowerCase();
+            const query = document.getElementById('game-search').value.toLowerCase().trim();
             const cards = document.querySelectorAll('.card');
+
             cards.forEach(card => {
                 const title = card.querySelector('h3').innerText.toLowerCase();
                 const desc = card.querySelector('p').innerText.toLowerCase();
+
                 if (title.includes(query) || desc.includes(query)) {
-                    card.style.display = 'flex';
+                    card.classList.remove('hidden');
                 } else {
-                    card.style.display = 'none';
+                    card.classList.add('hidden');
                 }
             });
         }
 
-        /* -------------------------------------------
-           SISTEMA DE AJUSTES Y LOCALSTORAGE
-           ------------------------------------------- */
+        /* =========================================
+           SISTEMA DE FRASES ALEATORIAS
+           ========================================= */
+        const quotesList = [
+            "AITOR SE  COMIÓ UN PASTELILLO DE CACA",
+            "SKUISHI PUSHY VS MAKA PAKA",
+            "NO INTERNET? BIG PROBLEM",
+            "CHEESCAKE...",
+            "ME PONGO EL SOMBRERO",
+            "QUIEN SE HECHA UN MAICRAF",
+            "I LOVE FURRY LOVE",
+            "EPIC GAMES NUNCA TE PEDIRA TU CONTRASEÑA",
+            "hola"
+        ];
+
+        let currentQuoteIndex = -1;
+
+        function updateRandomQuote() {
+            const loginQuote = document.getElementById('random-quote');
+            const headerQuote = document.getElementById('header-quote');
+
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * quotesList.length);
+            } while (randomIndex === currentQuoteIndex && quotesList.length > 1);
+
+            currentQuoteIndex = randomIndex;
+
+            if (loginQuote) loginQuote.classList.add('fade-out');
+            if (headerQuote) headerQuote.classList.add('fade-out');
+
+            setTimeout(() => {
+                const text = quotesList[currentQuoteIndex];
+                if (loginQuote) {
+                    loginQuote.innerText = text;
+                    loginQuote.classList.remove('fade-out');
+                }
+                if (headerQuote) {
+                    headerQuote.innerText = text;
+                    headerQuote.classList.remove('fade-out');
+                }
+            }, 600);
+        }
+
+        updateRandomQuote();
+        setInterval(updateRandomQuote, 5000);
+
+        /* =========================================
+           SISTEMA DE LOGIN
+           ========================================= */
+        const passInput = document.getElementById('password-input');
+        passInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        function checkPassword() {
+            const val = passInput.value;
+            const errorMsg = document.getElementById('login-error');
+            if (val === 'astroworld') {
+                document.getElementById('login-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('login-screen').style.display = 'none';
+                    document.getElementById('app-content').style.display = 'block';
+                }, 800);
+            } else {
+                errorMsg.innerText = "ACCESO DENEGADO";
+                setTimeout(() => errorMsg.innerText = "", 2000);
+                passInput.value = "";
+            }
+        }
+
+        /* =========================================
+           SISTEMA DE AJUSTES
+           ========================================= */
         function toggleSettings() {
             document.getElementById('settings-modal').classList.toggle('open');
         }
@@ -881,7 +884,7 @@ function checkPassword() {
                     try {
                         localStorage.setItem('astro_bg', base64Str);
                     } catch (err) {
-                        alert("La imagen es demasiado pesada para guardarla en la caché local, pero se aplicará temporalmente.");
+                        alert("La imagen es demasiado grande para guardarse en el almacenamiento local.");
                     }
                 };
                 reader.readAsDataURL(file);
@@ -894,222 +897,262 @@ function checkPassword() {
             bgUpload.value = "";
         }
 
-        /* -------------------------------------------
-           GESTOR DE JUEGOS Y MODALES
-           ------------------------------------------- */
-        let currentGameLoop = null;
+        /* =========================================
+           SISTEMA DE REPRODUCCIÓN Y JUEGOS
+           ========================================= */
+        let currentGameInterval = null;
+        let currentGameAnimationFrame = null;
+        let snakeKeyHandler = null;
 
-        function openGame(type) {
+        function closeGame() {
+            document.getElementById('game-modal').style.display = 'none';
+            document.getElementById('game-viewport').innerHTML = '';
+
+            delete window.EJS_player;
+            delete window.EJS_core;
+            delete window.EJS_gameName;
+            delete window.EJS_gameUrl;
+
+            const oldScript = document.getElementById('ejs-script');
+            if (oldScript) oldScript.remove();
+
+            if (currentGameInterval) { clearInterval(currentGameInterval); currentGameInterval = null; }
+            if (currentGameAnimationFrame) { cancelAnimationFrame(currentGameAnimationFrame); currentGameAnimationFrame = null; }
+            if (snakeKeyHandler) { window.removeEventListener('keydown', snakeKeyHandler); snakeKeyHandler = null; }
+        }
+
+        /* MINECRAFT WEB (EAGLERCRAFT) */
+        function openMinecraft() {
+            closeGame();
             const modal = document.getElementById('game-modal');
             const viewport = document.getElementById('game-viewport');
             const title = document.getElementById('game-title');
             const controls = document.getElementById('game-controls');
 
-            viewport.innerHTML = '';
-            controls.innerText = '';
+            title.innerText = "Minecraft Web 1.8 (Eaglercraft)";
+            controls.innerText = "Controles: WASD para Moverte | Espacio: Saltar | Click Izquierdo: Romper | Click Derecho: Bloque / Usar";
+
+            viewport.innerHTML = '<iframe src="https://eaglercraft.q13x.com/" style="width:100%; height:100%; border:none;"></iframe>';
+            modal.style.display = 'flex';
+        }
+
+        /* ZELDA: A LINK TO THE PAST roms/zelda.sfc */
+        function openZelda() {
+            closeGame();
+            const modal = document.getElementById('game-modal');
+            const viewport = document.getElementById('game-viewport');
+            const title = document.getElementById('game-title');
+            const controls = document.getElementById('game-controls');
+
+            title.innerText = "Zelda: A Link to the Past (SNES)";
+            controls.innerText = "Controles: Teclas A/S/Z/X para botones | Flechas para Mover | Enter: Start | Shift: Select";
+
+            viewport.innerHTML = '<div id="game" style="width:100%;height:100%;"></div>';
             modal.style.display = 'flex';
 
+            window.EJS_player = '#game';
+            window.EJS_core = 'snes';
+            window.EJS_gameName = 'The Legend of Zelda: A Link to the Past';
+            window.EJS_color = '#00F0FF';
+            window.EJS_startOnLoaded = true;
+            window.EJS_defaultVolume = 1;
+            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+
+            window.EJS_gameUrl = 'roms/zelda.sfc'; 
+
+            const script = document.createElement('script');
+            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            script.id = 'ejs-script';
+            document.body.appendChild(script);
+        }
+
+        /* CARGA DE DOOM MEDIANTE CARPETA LOCAL roms/doom1.wad */
+        function openDoom() {
+            closeGame();
+            const modal = document.getElementById('game-modal');
+            const viewport = document.getElementById('game-viewport');
+            const title = document.getElementById('game-title');
+            const controls = document.getElementById('game-controls');
+
+            title.innerText = "DOOM (1993)";
+            controls.innerText = "Controles: Flechas de dirección | ENTER/X: Aceptar | Ctrl: Disparar | Espacio: Abrir puertas";
+
+            viewport.innerHTML = '<div id="game" style="width:100%;height:100%;"></div>';
+            modal.style.display = 'flex';
+
+            window.EJS_player = '#game';
+            window.EJS_core = 'prboom';
+            window.EJS_gameName = 'DOOM';
+            window.EJS_color = '#00F0FF';
+            window.EJS_startOnLoaded = true;
+            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+            window.EJS_gameUrl = 'roms/doom1.wad';
+
+            const script = document.createElement('script');
+            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            script.id = 'ejs-script';
+            document.body.appendChild(script);
+        }
+
+        /* El mario world usando el roms/smw.smc */
+        function openMarioWorld() {
+            closeGame();
+            const modal = document.getElementById('game-modal');
+            const viewport = document.getElementById('game-viewport');
+            const title = document.getElementById('game-title');
+            const controls = document.getElementById('game-controls');
+
+            title.innerText = "Super Mario All Stars (SNES)";
+            controls.innerText = "Controles: Teclas A/S/Z/X para botones | Flechas para Mover | Enter: Start | Shift: Select";
+
+            viewport.innerHTML = '<div id="game" style="width:100%;height:100%;"></div>';
+            modal.style.display = 'flex';
+
+            window.EJS_player = '#game';
+            window.EJS_core = 'snes';
+            window.EJS_gameName = 'Super Mario All Star';
+            window.EJS_color = '#00F0FF';
+            window.EJS_startOnLoaded = true;
+            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+
+            window.EJS_gameUrl = 'roms/SuperMarioWorld.sfc'; 
+
+            const script = document.createElement('script');
+            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            script.id = 'ejs-script';
+            document.body.appendChild(script);
+        }
+
+        /* CARGA DE SUPER MARIO 64 MEDIANTE CARPETA LOCAL roms/mario64.z64 */
+        function openMario64() {
+            closeGame();
+            const modal = document.getElementById('game-modal');
+            const viewport = document.getElementById('game-viewport');
+            const title = document.getElementById('game-title');
+            const controls = document.getElementById('game-controls');
+
+            title.innerText = "Super Mario 64 (N64)";
+            controls.innerText = "Controles: Teclas A/S/Z/X para botones | Flechas para Mover | Enter: Start";
+
+            viewport.innerHTML = '<div id="game" style="width:100%;height:100%;"></div>';
+            modal.style.display = 'flex';
+
+            window.EJS_player = '#game';
+            window.EJS_core = 'n64';
+            window.EJS_gameName = 'Super Mario 64';
+            window.EJS_color = '#00F0FF';
+            window.EJS_startOnLoaded = true;
+            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+            window.EJS_gameUrl = 'roms/mario64.z64';
+
+            const script = document.createElement('script');
+            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            script.id = 'ejs-script';
+            document.body.appendChild(script);
+        }
+
+        /* ABRIR JUEGOS ORIGINALES Y EMBEDDED */
+        function openGame(type) {
+            closeGame();
+            const modal = document.getElementById('game-modal');
+            const viewport = document.getElementById('game-viewport');
+            const title = document.getElementById('game-title');
+            const controls = document.getElementById('game-controls');
+
             if (type === 'snake') {
-                title.innerText = "Neon Snake";
-                controls.innerText = "Controles: Flechas del teclado";
                 viewport.innerHTML = '<canvas id="gameCanvas" width="600" height="400"></canvas>';
+                modal.style.display = 'flex';
+                title.innerText = "Nokia 3310 Snake";
+                controls.innerText = "Controles: Flechas o WASD para girar la serpiente";
                 startSnake();
-            } else if (type === 'dino') {
-                title.innerText = "Space Runner";
-                controls.innerText = "Controles: ESPACIO o Flecha Arriba para saltar";
-                viewport.innerHTML = '<canvas id="gameCanvas" width="600" height="400"></canvas>';
-                startDino();
+            } 
+            else if (type === 'dino') {
+                // Carga la versión 3D oficial de elgooG
+                title.innerText = "Chrome Dino 3D (elgooG)";
+                controls.innerText = "Controles: ESPACIO / Flecha Arriba para saltar | Flecha Abajo para agacharte";
+                viewport.innerHTML = '<iframe src="https://elgoog.im/dinosaur-game/3d/" style="width:100%; height:100%; border:none; background:#000;"></iframe>';
+                modal.style.display = 'flex';
+            } 
+            else if (type === 'pacman') {
+                // Carga versión HTML5 de Pac-Man compatible sin bloqueos de iframe
+                title.innerText = "Pac-Man Arcade Original";
+                controls.innerText = "Controles: Usa las Flechas del teclado para mover a Pac-Man";
+                viewport.innerHTML = '<iframe src="https://freepacman.org/" style="width:100%; height:100%; border:none;"></iframe>';
+                modal.style.display = 'flex';
             }
         }
 
-        function closeGame() {
-            document.getElementById('game-modal').style.display = 'none';
-            document.getElementById('game-viewport').innerHTML = '';
-            if (currentGameLoop) {
-                cancelAnimationFrame(currentGameLoop);
-                currentGameLoop = null;
-            }
-            window.removeEventListener('keydown', snakeKeyHandler);
-            window.removeEventListener('keydown', dinoKeyHandler);
-        }
-
-        /* =========================================================================
-           LÓGICA DE JUEGOS HTML5 (NATIVOS)
-           ========================================================================= */
-        let snakeKeyHandler, dinoKeyHandler;
-
+        /* =========================================
+           SNAKE ORIGINAL NOKIA 3310
+           ========================================= */
         function startSnake() {
             const canvas = document.getElementById('gameCanvas');
             const ctx = canvas.getContext('2d');
-            let snake = [{ x: 10, y: 10 }];
-            let food = { x: 15, y: 15 };
+            const cols = 30, rows = 20;
+            const size = canvas.width / cols;
+
+            let snake = [{ x: 15, y: 10 }, { x: 14, y: 10 }, { x: 13, y: 10 }];
             let dx = 1, dy = 0;
             let score = 0;
-            const gridSize = 20;
-            const tileCountX = canvas.width / gridSize;
-            const tileCountY = canvas.height / gridSize;
 
-            let lastRenderTime = 0;
-            const snakeSpeed = 10;
+            function generateFood() {
+                return {
+                    x: Math.floor(Math.random() * cols),
+                    y: Math.floor(Math.random() * rows)
+                };
+            }
+            let food = generateFood();
 
             snakeKeyHandler = (e) => {
-                if (e.key === 'ArrowUp' && dy === 0) { dx = 0; dy = -1; }
-                if (e.key === 'ArrowDown' && dy === 0) { dx = 0; dy = 1; }
-                if (e.key === 'ArrowLeft' && dx === 0) { dx = -1; dy = 0; }
-                if (e.key === 'ArrowRight' && dx === 0) { dx = 1; dy = 0; }
+                if ((e.key === 'ArrowUp' || e.key === 'w') && dy === 0) { dx = 0; dy = -1; }
+                if ((e.key === 'ArrowDown' || e.key === 's') && dy === 0) { dx = 0; dy = 1; }
+                if ((e.key === 'ArrowLeft' || e.key === 'a') && dx === 0) { dx = -1; dy = 0; }
+                if ((e.key === 'ArrowRight' || e.key === 'd') && dx === 0) { dx = 1; dy = 0; }
             };
             window.addEventListener('keydown', snakeKeyHandler);
 
-            function loop(currentTime) {
-                currentGameLoop = requestAnimationFrame(loop);
-                const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000;
-                if (secondsSinceLastRender < 1 / snakeSpeed) return;
-                lastRenderTime = currentTime;
-
+            function update() {
                 const head = { x: snake[0].x + dx, y: snake[0].y + dy };
-                if (head.x < 0) head.x = tileCountX - 1;
-                if (head.x >= tileCountX) head.x = 0;
-                if (head.y < 0) head.y = tileCountY - 1;
-                if (head.y >= tileCountY) head.y = 0;
 
-                if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
-                    snake = [{ x: 10, y: 10 }]; dx = 1; dy = 0; score = 0;
+                if (head.x < 0 || head.x >= cols || head.y < 0 || head.y >= rows) {
+                    alert('¡Game Over! Puntuación Nokia: ' + score);
+                    snake = [{ x: 15, y: 10 }, { x: 14, y: 10 }, { x: 13, y: 10 }];
+                    dx = 1; dy = 0; score = 0; food = generateFood();
+                    return;
+                }
+
+                for (let seg of snake) {
+                    if (head.x === seg.x && head.y === seg.y) {
+                        alert('¡Game Over! Puntuación Nokia: ' + score);
+                        snake = [{ x: 15, y: 10 }, { x: 14, y: 10 }, { x: 13, y: 10 }];
+                        dx = 1; dy = 0; score = 0; food = generateFood();
+                        return;
+                    }
                 }
 
                 snake.unshift(head);
-
                 if (head.x === food.x && head.y === food.y) {
-                    score++;
-                    food = { x: Math.floor(Math.random() * tileCountX), y: Math.floor(Math.random() * tileCountY) };
+                    score += 10;
+                    food = generateFood();
                 } else {
                     snake.pop();
                 }
 
-                ctx.fillStyle = '#050510';
+                ctx.fillStyle = '#9bbc0f';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                ctx.fillStyle = '#FF007F';
-                ctx.shadowBlur = 15; ctx.shadowColor = '#FF007F';
-                ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
+                ctx.fillStyle = '#0f380f';
+                ctx.fillRect(food.x * size + 2, food.y * size + 2, size - 4, size - 4);
 
-                ctx.fillStyle = '#00F0FF';
-                ctx.shadowBlur = 10; ctx.shadowColor = '#00F0FF';
                 snake.forEach(seg => {
-                    ctx.fillRect(seg.x * gridSize, seg.y * gridSize, gridSize - 2, gridSize - 2);
+                    ctx.fillRect(seg.x * size + 1, seg.y * size + 1, size - 2, size - 2);
                 });
-                ctx.shadowBlur = 0;
 
-                ctx.fillStyle = 'white';
-                ctx.font = '20px Orbitron';
-                ctx.fillText(`SCORE: ${score}`, 10, 30);
+                ctx.font = 'bold 16px "Courier New", monospace';
+                ctx.fillText('SCORE: ' + score, 15, 25);
             }
-            requestAnimationFrame(loop);
-        }
 
-        function startDino() {
-            const canvas = document.getElementById('gameCanvas');
-            const ctx = canvas.getContext('2d');
-
-            let dino = { x: 50, y: 300, w: 30, h: 30, dy: 0, gravity: 0.6, jump: -12, grounded: true };
-            let obstacles = [];
-            let score = 0;
-            let frame = 0;
-
-            dinoKeyHandler = (e) => {
-                if ((e.code === 'Space' || e.code === 'ArrowUp') && dino.grounded) {
-                    dino.dy = dino.jump;
-                    dino.grounded = false;
-                }
-            };
-            window.addEventListener('keydown', dinoKeyHandler);
-
-            function loop() {
-                currentGameLoop = requestAnimationFrame(loop);
-                ctx.fillStyle = '#050510';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                dino.dy += dino.gravity;
-                dino.y += dino.dy;
-                if (dino.y + dino.h >= 350) {
-                    dino.y = 350 - dino.h;
-                    dino.dy = 0;
-                    dino.grounded = true;
-                }
-
-                ctx.strokeStyle = '#00F0FF'; ctx.lineWidth = 2;
-                ctx.beginPath(); ctx.moveTo(0, 350); ctx.lineTo(canvas.width, 350); ctx.stroke();
-
-                if (frame % 90 === 0) {
-                    obstacles.push({ x: canvas.width, y: 320, w: 20, h: 30, speed: 5 + score / 500 });
-                }
-
-                ctx.fillStyle = '#FF7000';
-                ctx.shadowBlur = 10; ctx.shadowColor = '#FF7000';
-                for (let i = 0; i < obstacles.length; i++) {
-                    let obs = obstacles[i];
-                    obs.x -= obs.speed;
-                    ctx.fillRect(obs.x, obs.y, obs.w, obs.h);
-
-                    if (dino.x < obs.x + obs.w && dino.x + dino.w > obs.x && dino.y < obs.y + obs.h && dino.y + dino.h > obs.y) {
-                        score = 0; obstacles = [];
-                    }
-                }
-                obstacles = obstacles.filter(o => o.x + o.w > 0);
-
-                ctx.fillStyle = '#FEE715';
-                ctx.shadowBlur = 15; ctx.shadowColor = '#FEE715';
-                ctx.fillRect(dino.x, dino.y, dino.w, dino.h);
-                ctx.shadowBlur = 0;
-
-                score++;
-                ctx.fillStyle = 'white';
-                ctx.font = '20px Orbitron';
-                ctx.fillText(`DIST: ${Math.floor(score / 10)}`, 10, 30);
-                frame++;
-            }
-            loop();
-        }
-
-        /* =========================================================================
-           INTEGRACIÓN CON EMULATORJS
-           ========================================================================= */
-        function loadEmulator(core, romUrl, title) {
-            const modal = document.getElementById('game-modal');
-            const viewport = document.getElementById('game-viewport');
-            const titleEl = document.getElementById('game-title');
-            const controls = document.getElementById('game-controls');
-
-            titleEl.innerText = title;
-            controls.innerText = "Nota: Asegúrate de que las rutas locales a los ROMs sean correctas.";
-
-            viewport.innerHTML = `
-                <div style="width:100%;height:100%;max-width:100%">
-                    <div id="game"></div>
-                </div>
-            `;
-
-            modal.style.display = 'flex';
-
-            window.EJS_player = '#game';
-            window.EJS_core = core;
-            window.EJS_gameUrl = romUrl;
-            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-            window.EJS_color = '#FF007F';
-
-            if (!document.getElementById('ejs-loader')) {
-                const script = document.createElement('script');
-                script.id = 'ejs-loader';
-                script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-                document.body.appendChild(script);
-            } else {
-                const oldScript = document.getElementById('ejs-loader');
-                oldScript.remove();
-
-                const newScript = document.createElement('script');
-                newScript.id = 'ejs-loader';
-                newScript.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-                document.body.appendChild(newScript);
-            }
+            currentGameInterval = setInterval(update, 90);
         }
     </script>
 </body>
