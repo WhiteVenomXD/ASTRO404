@@ -560,6 +560,64 @@
             overflow: hidden;
         }
 
+        /* Modo ancho para juegos que necesitan más pantalla (Atomic Swarm) */
+        #game-modal.wide .game-header,
+        #game-modal.wide .game-container {
+            max-width: min(1100px, 96vw);
+        }
+
+        #game-modal.wide .game-container {
+            height: min(760px, 80vh);
+        }
+
+        /* Pantalla de contraseña de un juego */
+        .game-lock {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 30px;
+            width: 100%;
+            max-width: 340px;
+            text-align: center;
+        }
+
+        .game-lock .lock-icon {
+            font-size: 3rem;
+        }
+
+        .game-lock h3 {
+            color: var(--neon-cyan);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .game-lock input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            text-align: center;
+        }
+
+        .game-lock input:focus {
+            box-shadow: var(--shadow-cyan);
+        }
+
+        .game-lock .btn-neon {
+            margin-top: 6px;
+        }
+
+        .game-lock .lock-error {
+            color: var(--neon-pink);
+            font-size: 0.8rem;
+            height: 16px;
+        }
+
         canvas {
             background: #050510;
             display: block;
@@ -659,6 +717,13 @@
                     <div class="card-icon">🟡</div>
                     <h3>Pac-Man Arcade Original</h3>
                     <p>La versión funcional Arcade en HTML5 con mapa, sonido y jugabilidad exacta.</p>
+                    <button class="btn-play">JUGAR</button>
+                </div>
+
+                <div class="glass card" onclick="openAtomicSwarm()">
+                    <div class="card-icon">⚛️</div>
+                    <h3>Atomic Swarm 🔒</h3>
+                    <p>Sobrevive al enjambre: mejora tu nave, desbloquea mundos y derrota jefes. Requiere contraseña.</p>
                     <button class="btn-play">JUGAR</button>
                 </div>
             </div>
@@ -883,8 +948,11 @@
         let snakeKeyHandler = null;
 
         function closeGame() {
-            document.getElementById('game-modal').style.display = 'none';
+            const modal = document.getElementById('game-modal');
+            modal.style.display = 'none';
+            modal.classList.remove('wide');
             document.getElementById('game-viewport').innerHTML = '';
+            document.getElementById('game-controls').innerText = '';
 
             delete window.EJS_player;
             delete window.EJS_core;
@@ -897,6 +965,54 @@
             if (currentGameInterval) { clearInterval(currentGameInterval); currentGameInterval = null; }
             if (currentGameAnimationFrame) { cancelAnimationFrame(currentGameAnimationFrame); currentGameAnimationFrame = null; }
             if (snakeKeyHandler) { window.removeEventListener('keydown', snakeKeyHandler); snakeKeyHandler = null; }
+        }
+
+        /* =========================================
+           ATOMIC SWARM (con contraseña: POKI)
+           El juego vive en juegos/atomic-swarm.html
+           ========================================= */
+        const ATOMIC_SWARM_PASS = 'POKI';
+
+        function openAtomicSwarm() {
+            closeGame();
+            const modal = document.getElementById('game-modal');
+            const viewport = document.getElementById('game-viewport');
+            const title = document.getElementById('game-title');
+            const controls = document.getElementById('game-controls');
+
+            title.innerText = "Atomic Swarm 🔒";
+            controls.innerText = "";
+            modal.classList.add('wide');
+
+            viewport.innerHTML = `
+                <div class="game-lock">
+                    <div class="lock-icon">🔒</div>
+                    <h3>JUEGO PROTEGIDO</h3>
+                    <input type="password" id="swarm-pass" placeholder="Contraseña..." autocomplete="off">
+                    <div class="lock-error" id="swarm-error"></div>
+                    <button class="btn-neon" id="swarm-btn">DESBLOQUEAR</button>
+                </div>`;
+            modal.style.display = 'flex';
+
+            const input = document.getElementById('swarm-pass');
+            const err = document.getElementById('swarm-error');
+
+            function tryUnlock() {
+                if (input.value.trim().toUpperCase() === ATOMIC_SWARM_PASS) {
+                    title.innerText = "Atomic Swarm";
+                    controls.innerText = "Controles: Mueve el ratón o el dedo para pilotar tu nave";
+                    viewport.innerHTML = '<iframe src="juegos/atomic-swarm.html" allow="fullscreen; autoplay" style="width:100%; height:100%; border:none; background:#000;"></iframe>';
+                } else {
+                    err.innerText = "CONTRASEÑA INCORRECTA";
+                    setTimeout(() => err.innerText = "", 2000);
+                    input.value = "";
+                    input.focus();
+                }
+            }
+
+            document.getElementById('swarm-btn').addEventListener('click', tryUnlock);
+            input.addEventListener('keypress', (e) => { if (e.key === 'Enter') tryUnlock(); });
+            input.focus();
         }
 
         /* MINECRAFT WEB (EAGLERCRAFT) */
@@ -935,8 +1051,8 @@
             window.EJS_startOnLoaded = true;
             window.EJS_defaultVolume = 1;
             window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-            
-            window.EJS_gameUrl = 'roms/zelda.sfc'; 
+
+            window.EJS_gameUrl = 'roms/zelda.sfc';
 
             const script = document.createElement('script');
             script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
@@ -992,8 +1108,8 @@
             window.EJS_color = '#00F0FF';
             window.EJS_startOnLoaded = true;
             window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-            
-            window.EJS_gameUrl = 'roms/SuperMarioWorld.sfc'; 
+
+            window.EJS_gameUrl = 'roms/SuperMarioWorld.sfc';
 
             const script = document.createElement('script');
             script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
@@ -1043,14 +1159,14 @@
                 title.innerText = "Nokia 3310 Snake";
                 controls.innerText = "Controles: Flechas o WASD para girar la serpiente";
                 startSnake();
-            } 
+            }
             else if (type === 'dino') {
                 // Carga la versión 3D oficial de elgooG
                 title.innerText = "Chrome Dino 3D (elgooG)";
                 controls.innerText = "Controles: ESPACIO / Flecha Arriba para saltar | Flecha Abajo para agacharte";
                 viewport.innerHTML = '<iframe src="https://elgoog.im/dinosaur-game/3d/" style="width:100%; height:100%; border:none; background:#000;"></iframe>';
                 modal.style.display = 'flex';
-            } 
+            }
             else if (type === 'pacman') {
                 // Carga versión HTML5 de Pac-Man compatible sin bloqueos de iframe
                 title.innerText = "Pac-Man Arcade Original";
